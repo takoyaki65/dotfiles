@@ -9,6 +9,9 @@ sudo apt install libgtest-dev -y
 sudo apt install fish -y
 chsh -s /usr/bin/fish
 
+# install trash-cli
+sudo apt install trash-cli -y
+
 # Gitの設定
 git config --global user.name "takoyaki65"
 git config --global user.email "takoyaki65@users.noreply.github.com"

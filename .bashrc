@@ -115,3 +115,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# avoid to use unsafe remove command
+alias del=trash
+alias delete=trash
