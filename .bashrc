@@ -119,3 +119,11 @@ fi
 # avoid to use unsafe remove command
 alias del=trash
 alias delete=trash
+
+function rm() {
+    echo "rm is invertible operation. Use trash instead.";
+    read -p "If you really want to remove file by rm? [y/n] " response;
+    if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        /bin/rm "$@";
+    fi
+}
