@@ -6,6 +6,8 @@ sudo apt install build-essential gdb -y
 sudo apt install texlive-full -y
 sudo apt install libgtest-dev -y
 # install fish shell
+sudo apt-add-repository ppa:fish-shell/release-3 -y
+sudo apt update
 sudo apt install fish -y
 # set fish as default shell
 #chsh -s /usr/bin/fish
