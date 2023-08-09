@@ -1,14 +1,14 @@
 #!/bin/bash
 
-sudo apt update && sudo apt upgrade -y
-#sudo apt install language-pack-ja -y
-sudo apt install build-essential gdb -y
-sudo apt install texlive-full -y
-sudo apt install libgtest-dev -y
+apt update && apt upgrade -y
+#apt install language-pack-ja -y
+apt install build-essential gdb -y
+apt install texlive-full -y
+apt install libgtest-dev -y
 # install fish shell
-sudo apt-add-repository ppa:fish-shell/release-3 -y
-sudo apt update
-sudo apt install fish -y
+apt-add-repository ppa:fish-shell/release-3 -y
+apt update
+apt install fish -y
 # set fish as default shell
 #chsh -s /usr/bin/fish
 
@@ -21,12 +21,12 @@ sudo apt install fish -y
 # install HackGen_v2.9.0
 wget https://github.com/yuru7/HackGen/releases/download/v2.9.0/HackGen_v2.9.0.zip
 unzip HackGen_v2.9.0.zip
-sudo mkdir -p /usr/share/fonts/truetype/HackGen
-sudo cp HackGen_v2.9.0/*.ttf /usr/share/fonts/truetype/HackGen
-sudo fc-cache -fv
+mkdir -p /usr/share/fonts/truetype/HackGen
+cp HackGen_v2.9.0/*.ttf /usr/share/fonts/truetype/HackGen
+fc-cache -fv
 
 # install trash-cli
-sudo apt install trash-cli -y
+apt install trash-cli -y
 
 # Gitの設定
 git config --global user.name "takoyaki65"
