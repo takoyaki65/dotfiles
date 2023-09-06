@@ -32,10 +32,12 @@ apt install trash-cli -y
 git config --global user.name "takoyaki65"
 git config --global user.email "takoyaki65@users.noreply.github.com"
 
+USER_HOME=$(eval echo ~${SUDO_USER: -$USER})
+
 # initialize .bashrc
-rm ~/.bashrc
-ln -s ~/dotfiles/.bashrc ~/.bashrc
+rm "$USER_HOME/.bashrc"
+ln -s "$USER_HOME/dotfiles/.bashrc" "$USER_HOME/.bashrc"
 
 #initialize fish.config
-rm ~/.config/fish/config.fish
-ln -s ~/dotfiles/config.fish ~/.config/fish/config.fish
+rm "$USER_HOME/.config/fish/config.fish"
+ln -s "$USER_HOME/dotfiles/config.fish" "$USER_HOME/.config/fish/config.fish"
