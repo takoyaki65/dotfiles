@@ -44,8 +44,10 @@ ln -s "$USER_HOME/dotfiles/.bashrc" "$USER_HOME/.bashrc"
 #initialize fish.config
 #TODO: .config/fish/config.fish file doesn't exist until fish is executed.
 #       So, I need to execute fish before executing this script.
-rm "$USER_HOME/.config/fish/config.fish"
-ln -s "$USER_HOME/dotfiles/config.fish" "$USER_HOME/.config/fish/config.fish"
+# rm "$USER_HOME/.config/fish/config.fish"
+# ln -s "$USER_HOME/dotfiles/config.fish" "$USER_HOME/.config/fish/config.fish"
 
 # install rye
-curl -sSf https://rye-up.com/get | bash
+# TODO: rye is intended to install in user mode, but it is installed in root mode.
+#       I need to install rye in user mode.
+# curl -sSf https://rye-up.com/get | bash
