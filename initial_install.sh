@@ -3,8 +3,9 @@
 apt update && apt upgrade -y
 #apt install language-pack-ja -y
 apt install build-essential gdb -y
-apt install texlive-full -y
+# apt install texlive-full -y
 apt install libgtest-dev -y
+apt install unzip
 # install fish shell
 apt-add-repository ppa:fish-shell/release-3 -y
 apt update
@@ -29,7 +30,9 @@ fc-cache -fv
 apt install trash-cli -y
 
 # Gitの設定
-git config --global user.name "takoyaki65"
+#TODO: this setting is done only for root user.
+#      I need to set git config for each user.
+git config --global user.name "Takuya Mizokami"
 git config --global user.email "takoyaki65@users.noreply.github.com"
 
 USER_HOME=$(eval echo ~${SUDO_USER: -$USER})
@@ -39,5 +42,10 @@ rm "$USER_HOME/.bashrc"
 ln -s "$USER_HOME/dotfiles/.bashrc" "$USER_HOME/.bashrc"
 
 #initialize fish.config
+#TODO: .config/fish/config.fish file doesn't exist until fish is executed.
+#       So, I need to execute fish before executing this script.
 rm "$USER_HOME/.config/fish/config.fish"
 ln -s "$USER_HOME/dotfiles/config.fish" "$USER_HOME/.config/fish/config.fish"
+
+# install rye
+curl -sSf https://rye-up.com/get | bash

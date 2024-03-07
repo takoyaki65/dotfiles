@@ -127,3 +127,6 @@ function rm() {
         /bin/rm "$@";
     fi
 }
+
+# setup rye
+source "$HOME/.rye/env"
