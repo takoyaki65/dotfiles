@@ -8,6 +8,7 @@ apt install libgtest-dev -y
 apt install unzip
 
 # install fish shell
+# TODO: repository of fish-shell/release-3 is not found in the latest version of Ubuntu.
 # apt-add-repository ppa:fish-shell/release-3 -y
 # apt update
 # apt install fish -y
