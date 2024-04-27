@@ -1,11 +1,13 @@
 #!/bin/bash
 
+# turn on sudo mode
+sudo su
+
 apt update && apt upgrade -y
 #apt install language-pack-ja -y
 apt install build-essential gdb -y
-# apt install texlive-full -y
-apt install libgtest-dev -y
-apt install unzip
+apt install texlive-full -y
+apt install unzip -y
 
 # install fish shell
 # TODO: repository of fish-shell/release-3 is not found in the latest version of Ubuntu.
@@ -27,13 +29,16 @@ unzip HackGen_v2.9.0.zip
 mkdir -p /usr/share/fonts/truetype/HackGen
 cp HackGen_v2.9.0/*.ttf /usr/share/fonts/truetype/HackGen
 fc-cache -fv
+rm HackGen_v2.9.0.zip
+rm -r HackGen_v2.9.0
 
 # install trash-cli
 apt install trash-cli -y
 
+# turn back to user mode
+exit
+
 # Gitの設定
-#TODO: this setting is done only for root user.
-#      I need to set git config for each user.
 git config --global user.name "Takuya Mizokami"
 git config --global user.email "takoyaki65@users.noreply.github.com"
 
@@ -50,6 +55,4 @@ ln -s "$USER_HOME/dotfiles/.bashrc" "$USER_HOME/.bashrc"
 # ln -s "$USER_HOME/dotfiles/config.fish" "$USER_HOME/.config/fish/config.fish"
 
 # install rye
-# TODO: rye is intended to install in user mode, but it is installed in root mode.
-#       I need to install rye in user mode.
-# curl -sSf https://rye-up.com/get | bash
+curl -sSf https://rye-up.com/get | bash
