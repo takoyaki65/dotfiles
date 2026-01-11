@@ -1,46 +1,57 @@
 -- lsp.lua: Language Server Protocol configuration
 
 return {
-    -- LSP Configuration
+    -- Mason for LSP server management
+    {
+        "mason-org/mason.nvim",
+        lazy = false,
+        opts = {
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗",
+                },
+            },
+        },
+    },
+
+    {
+        "mason-org/mason-lspconfig.nvim",
+        lazy = false,
+        dependencies = { "mason-org/mason.nvim" },
+        opts = {
+            ensure_installed = {
+                "lua_ls",
+                "pyright",
+                "rust_analyzer",
+                "ts_ls",
+                "clangd",
+                "gopls",
+            },
+            automatic_installation = true,
+        },
+    },
+
+    -- LSP Configuration (using new vim.lsp.config API)
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
+        lazy = false,
         dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
+            "mason-org/mason.nvim",
+            "mason-org/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
-            { "j-hui/fidget.nvim", opts = {} }, -- LSP progress indicator
+            { "j-hui/fidget.nvim", opts = {} },
         },
         config = function()
-            -- Setup Mason first
-            require("mason").setup({
-                ui = {
-                    icons = {
-                        package_installed = "✓",
-                        package_pending = "➜",
-                        package_uninstalled = "✗",
-                    },
-                },
-            })
-
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "lua_ls",        -- Lua
-                    "pyright",       -- Python
-                    "rust_analyzer", -- Rust
-                    "ts_ls",         -- TypeScript/JavaScript
-                    "clangd",        -- C/C++
-                },
-                automatic_installation = true,
-            })
+            -- LSP capabilities (for completion)
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             -- LSP keymaps
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
                 callback = function(ev)
-                    local opts = { buffer = ev.buf }
                     local keymap = vim.keymap.set
-
                     keymap("n", "gD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to declaration" })
                     keymap("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to definition" })
                     keymap("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "Hover documentation" })
@@ -58,20 +69,12 @@ return {
                 end,
             })
 
-            -- LSP capabilities (for completion)
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-            -- Setup language servers
-            local lspconfig = require("lspconfig")
-
-            -- Lua
-            lspconfig.lua_ls.setup({
+            -- Configure LSP servers using vim.lsp.config (Neovim 0.11+ API)
+            vim.lsp.config("lua_ls", {
                 capabilities = capabilities,
                 settings = {
                     Lua = {
-                        diagnostics = {
-                            globals = { "vim" },
-                        },
+                        diagnostics = { globals = { "vim" } },
                         workspace = {
                             library = vim.api.nvim_get_runtime_file("", true),
                             checkThirdParty = false,
@@ -81,32 +84,38 @@ return {
                 },
             })
 
-            -- Python
-            lspconfig.pyright.setup({
+            vim.lsp.config("pyright", {
                 capabilities = capabilities,
             })
 
-            -- Rust
-            lspconfig.rust_analyzer.setup({
+            vim.lsp.config("rust_analyzer", {
                 capabilities = capabilities,
                 settings = {
                     ["rust-analyzer"] = {
-                        checkOnSave = {
-                            command = "clippy",
-                        },
+                        checkOnSave = { command = "clippy" },
                     },
                 },
             })
 
-            -- TypeScript/JavaScript
-            lspconfig.ts_ls.setup({
+            vim.lsp.config("ts_ls", {
                 capabilities = capabilities,
             })
 
-            -- C/C++
-            lspconfig.clangd.setup({
+            vim.lsp.config("clangd", {
                 capabilities = capabilities,
             })
+
+            vim.lsp.config("gopls", {
+                capabilities = capabilities,
+            })
+
+            -- Enable LSP servers
+            vim.lsp.enable("lua_ls")
+            vim.lsp.enable("pyright")
+            vim.lsp.enable("rust_analyzer")
+            vim.lsp.enable("ts_ls")
+            vim.lsp.enable("clangd")
+            vim.lsp.enable("gopls")
         end,
     },
 
