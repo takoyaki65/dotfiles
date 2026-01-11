@@ -128,5 +128,17 @@ function rm() {
     fi
 }
 
-# setup rye
-source "$HOME/.rye/env"
+# Neovim
+if [ -d "/opt/nvim-linux-x86_64/bin" ]; then
+    export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+fi
+. "$HOME/.cargo/env"
+
+# Go
+export GO_HOME="$HOME/.local/go"
+export PATH="$PATH:$GO_HOME/bin"
+export PATH="$PATH:$HOME/go/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
