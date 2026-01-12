@@ -121,6 +121,12 @@ alias del=trash
 alias delete=trash
 
 function rm() {
+    # Bypass when called from scripts (TTY check)
+    if [[ ! -t 0 ]] || [[ ! -t 1 ]]; then
+        /bin/rm "$@"
+        return
+    fi
+
     echo "rm is invertible operation. Use trash instead.";
     read -p "If you really want to remove file by rm? [y/n] " response;
     if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
@@ -142,3 +148,7 @@ export PATH="$PATH:$HOME/go/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
