@@ -15,6 +15,8 @@ return {
 
         -- Metals settings
         metals_config.settings = {
+            javaHome = "/usr/lib/jvm/java-17-openjdk-amd64",
+            serverVersion = "1.6.4",  -- Use stable version
             showImplicitArguments = true,
             showImplicitConversionsAndClasses = true,
             showInferredType = true,
