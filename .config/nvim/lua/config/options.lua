@@ -32,6 +32,10 @@ opt.splitbelow = true
 opt.wrap = false
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
+-- SSH接続時はOSC52、ローカルGUIではシステムクリップボード(xclip/wl-clipboard)
+if os.getenv("SSH_CONNECTION") then
+    vim.g.clipboard = "osc52"
+end
 opt.undofile = true
 opt.swapfile = false
 opt.updatetime = 250

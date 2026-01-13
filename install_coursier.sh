@@ -2,6 +2,10 @@
 
 set -e
 
+echo "Installing OpenJDK 21 and sources..."
+sudo apt update
+sudo apt install -y openjdk-21-jdk openjdk-21-source
+
 echo "Installing Coursier..."
 
 ARCH=$(uname -m)
