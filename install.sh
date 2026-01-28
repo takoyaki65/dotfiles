@@ -35,7 +35,8 @@ install_system_packages() {
             ripgrep \
             fd-find \
             trash-cli \
-            xclip
+            xclip \
+            tmux
     elif [[ "$OS" == "macos" ]]; then
         if ! command -v brew &> /dev/null; then
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -43,7 +44,8 @@ install_system_packages() {
         brew install \
             ripgrep \
             fd \
-            trash-cli
+            trash-cli \
+            tmux
     fi
 }
 
@@ -100,6 +102,13 @@ create_symlinks() {
     fi
     ln -sf "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
     info "Linked: bashrc"
+
+    # Tmux
+    if [[ -f "$HOME/.tmux.conf" ]]; then
+        mv "$HOME/.tmux.conf" "$HOME/.tmux.conf.backup.$(date +%Y%m%d%H%M%S)"
+    fi
+    ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
+    info "Linked: tmux.conf"
 }
 
 # ============================================

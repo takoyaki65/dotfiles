@@ -1,29 +1,31 @@
 -- editor.lua: Editor enhancement plugins
 
 return {
-    -- File explorer
+    -- File explorer (buffer-style)
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
+        "stevearc/oil.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = {
-            { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
-            { "<leader>o", "<cmd>Neotree focus<cr>", desc = "Focus file explorer" },
+            { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+            { "<leader>e", "<cmd>Oil --float<cr>", desc = "Open file explorer (float)" },
         },
         opts = {
-            filesystem = {
-                follow_current_file = { enabled = true },
-                hijack_netrw_behavior = "open_default",
+            default_file_explorer = true,
+            columns = { "icon" },
+            view_options = {
+                show_hidden = true,
             },
-            window = {
-                width = 30,
-                mappings = {
-                    ["<space>"] = "none",
-                },
+            win_options = {
+                winbar = "%!v:lua.require('oil').get_current_dir()",
+            },
+            float = {
+                padding = 2,
+                max_width = 100,
+                max_height = 30,
+            },
+            keymaps = {
+                ["q"] = "actions.close",
+                ["<Esc>"] = "actions.close",
             },
         },
     },
@@ -85,31 +87,29 @@ return {
         },
     },
 
-    -- Terminal
-    {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        keys = {
-            { "<C-\\>", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
-            { "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float terminal" },
-            { "<leader>th", "<cmd>ToggleTerm direction=horizontal size=15<cr>", desc = "Horizontal terminal" },
-            { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Vertical terminal" },
-        },
-        opts = {
-            open_mapping = [[<C-\>]],
-            direction = "float",
-            float_opts = {
-                border = "curved",
-            },
-        },
-    },
-
     -- Better escape
     {
         "max397574/better-escape.nvim",
         event = "InsertEnter",
         opts = {
             timeout = 200,
+        },
+    },
+
+    -- Seamless navigation between tmux panes and vim splits
+    {
+        "christoomey/vim-tmux-navigator",
+        cmd = {
+            "TmuxNavigateLeft",
+            "TmuxNavigateDown",
+            "TmuxNavigateUp",
+            "TmuxNavigateRight",
+        },
+        keys = {
+            { "<C-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Navigate left" },
+            { "<C-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Navigate down" },
+            { "<C-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Navigate up" },
+            { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Navigate right" },
         },
     },
 }

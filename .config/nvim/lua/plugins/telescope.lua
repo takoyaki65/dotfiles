@@ -3,12 +3,15 @@
 return {
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
+        branch = "master",
         dependencies = {
             "nvim-lua/plenary.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
+            },
+            {
+                "nvim-telescope/telescope-file-browser.nvim",
             },
         },
         cmd = "Telescope",
@@ -23,6 +26,7 @@ return {
             { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
             { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
             { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files (VSCode style)" },
+            { "<leader>fe", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", desc = "File browser" },
         },
         opts = {
             defaults = {
@@ -37,6 +41,7 @@ return {
         config = function(_, opts)
             require("telescope").setup(opts)
             pcall(require("telescope").load_extension, "fzf")
+            pcall(require("telescope").load_extension, "file_browser")
         end,
     },
 }

@@ -21,6 +21,7 @@ opt.incsearch = true
 
 -- Appearance
 opt.termguicolors = true
+vim.o.background = "dark"  -- Disable OSC 11 background detection
 opt.signcolumn = "yes"
 opt.cursorline = true
 opt.scrolloff = 8
