@@ -1,0 +1,11 @@
+[tools]
+node = "lts"
+go = "1.25"
+java = "temurin-21"
+rust = "stable"
+neovim = "0.11"
+ripgrep = "latest"
+fd = "latest"
+fzf = "latest"
+bat = "latest"
+uv = "latest"

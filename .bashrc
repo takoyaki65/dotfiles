@@ -134,24 +134,18 @@ function rm() {
     fi
 }
 
-# Neovim
-if [ -d "/opt/nvim-linux-x86_64/bin" ]; then
-    export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+# mise (tool version manager)
+if [ -f "$HOME/.local/bin/mise" ]; then
+    eval "$($HOME/.local/bin/mise activate bash)"
 fi
-. "$HOME/.cargo/env"
 
-# Go
-export GO_HOME="$HOME/.local/go"
-export PATH="$PATH:$GO_HOME/bin"
-export PATH="$PATH:$HOME/go/bin"
+# fzf shell integration
+if command -v fzf &> /dev/null; then
+    eval "$(fzf --bash)"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-export PATH="$JAVA_HOME:$PATH"
+    if command -v fd &> /dev/null; then
+        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+        export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --exclude .git'
+        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+    fi
+fi

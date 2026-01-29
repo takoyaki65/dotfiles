@@ -32,8 +32,6 @@ install_system_packages() {
             curl \
             wget \
             git \
-            ripgrep \
-            fd-find \
             trash-cli \
             xclip \
             tmux
@@ -42,32 +40,28 @@ install_system_packages() {
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
         brew install \
-            ripgrep \
-            fd \
             trash-cli \
             tmux
     fi
 }
 
 # ============================================
-# Neovim
+# mise (tool version manager)
 # ============================================
-install_neovim() {
-    info "Installing Neovim..."
+install_mise() {
+    info "Installing mise..."
 
-    if [[ "$OS" == "linux" ]]; then
-        # Install latest stable Neovim
-        NVIM_VERSION="v0.11.5"
-        curl -LO "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
-        sudo rm -rf /opt/nvim-linux-x86_64
-        sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-        rm nvim-linux-x86_64.tar.gz
-        export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-    elif [[ "$OS" == "macos" ]]; then
-        brew install neovim
+    if command -v "$HOME/.local/bin/mise" &> /dev/null; then
+        info "mise is already installed, updating..."
+        "$HOME/.local/bin/mise" self-update
+    else
+        curl https://mise.run | sh
     fi
 
-    info "Neovim installed: $(nvim --version | head -1)"
+    info "Installing tools defined in config.toml..."
+    "$HOME/.local/bin/mise" install
+
+    info "mise setup complete"
 }
 
 # ============================================
@@ -109,6 +103,11 @@ create_symlinks() {
     fi
     ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
     info "Linked: tmux.conf"
+
+    # mise
+    mkdir -p "$XDG_CONFIG_HOME/mise"
+    ln -sf "$DOTFILES_DIR/.config/mise/config.toml" "$XDG_CONFIG_HOME/mise/config.toml"
+    info "Linked: mise/config.toml"
 }
 
 # ============================================
@@ -134,7 +133,7 @@ main() {
     PS3="Select components to install (space-separated numbers, or 'a' for all): "
     options=(
         "System packages"
-        "Neovim"
+        "mise (dev tools)"
         "Symlinks"
         "Git configuration"
         "All"
@@ -144,8 +143,8 @@ main() {
     # Default: install all
     if [[ "$1" == "--all" || "$1" == "-a" ]]; then
         install_system_packages
-        install_neovim
         create_symlinks
+        install_mise
         setup_git
         echo ""
         info "All components installed successfully!"
@@ -156,13 +155,13 @@ main() {
     select opt in "${options[@]}"; do
         case $opt in
             "System packages") install_system_packages ;;
-            "Neovim") install_neovim ;;
+            "mise (dev tools)") install_mise ;;
             "Symlinks") create_symlinks ;;
             "Git configuration") setup_git ;;
             "All")
                 install_system_packages
-                install_neovim
                 create_symlinks
+                install_mise
                 setup_git
                 ;;
             "Quit") break ;;

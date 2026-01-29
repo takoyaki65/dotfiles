@@ -26,8 +26,6 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-. "$HOME/.cargo/env"
-
 # >>> coursier install directory >>>
 export PATH="$PATH:/home/takuyamizokami/.local/share/coursier/bin"
 # <<< coursier install directory <<<
