@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal dotfiles for Linux and macOS, featuring a modern Neovim setup with LSP support.
+Personal dotfiles for Linux and macOS, featuring Neovim + tmux workflow with LSP support. Dev tools are managed by [mise](https://mise.jdx.dev/).
 
 ## Structure
 
@@ -8,9 +8,12 @@ Personal dotfiles for Linux and macOS, featuring a modern Neovim setup with LSP 
 dotfiles/
 ├── .bashrc                 # Bash configuration
 ├── .profile                # Shell profile
+├── .tmux.conf              # tmux configuration
 ├── .config/
 │   ├── fish/
 │   │   └── config.fish     # Fish shell configuration
+│   ├── mise/
+│   │   └── config.toml     # mise tool versions (Node, Go, Rust, etc.)
 │   └── nvim/
 │       ├── init.lua        # Neovim entry point
 │       └── lua/
@@ -24,14 +27,13 @@ dotfiles/
 │               ├── telescope.lua    # Fuzzy finder
 │               ├── treesitter.lua   # Syntax highlighting
 │               ├── lsp.lua          # LSP & completion
+│               ├── metals.lua       # Scala LSP (Metals)
 │               └── editor.lua       # File explorer, git, etc.
 ├── scripts/
 │   └── utils.sh            # Common utility functions
 ├── install.sh              # Installation script
-├── install_rust.sh         # Rust installation script
-├── install_go.sh           # Go installation script
-├── install_node.sh         # Node.js installation script (via nvm)
-├── install_uv.sh           # uv (Python package manager) installation script
+├── install_clipboard.sh    # Clipboard integration script
+├── install_coursier.sh     # Coursier (Scala) installation script
 └── LICENSE
 ```
 
@@ -57,28 +59,12 @@ This will prompt you to select which components to install:
 - Symlinks
 - Git configuration
 
-### Install Rust
+### Dev Tools (via mise)
+
+Development tools (Node.js, Go, Rust, uv, etc.) are managed by [mise](https://mise.jdx.dev/). See `.config/mise/config.toml` for the configured tool versions.
 
 ```bash
-./install_rust.sh
-```
-
-### Install Go
-
-```bash
-./install_go.sh
-```
-
-### Install Node.js (via nvm)
-
-```bash
-./install_node.sh
-```
-
-### Install uv (Python package manager)
-
-```bash
-./install_uv.sh
+mise install
 ```
 
 ## Neovim Setup
@@ -86,7 +72,7 @@ This will prompt you to select which components to install:
 ### Features
 
 - **Plugin Manager**: [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **LSP Support**: Rust, TypeScript/JavaScript, Python, C/C++, Lua
+- **LSP Support**: Rust, TypeScript/JavaScript, Python, C/C++, Lua, Scala (Metals)
 - **Fuzzy Finder**: Telescope
 - **Syntax Highlighting**: Treesitter
 - **File Explorer**: Neo-tree
@@ -121,13 +107,13 @@ Leader key: `Space`
 | `<leader>fm` | Format |
 | `[d` / `]d` | Previous/Next diagnostic |
 
-#### Window Management
+#### Window/Pane Navigation (via tmux)
 
 | Key | Description |
 |-----|-------------|
-| `<C-h/j/k/l>` | Navigate windows |
-| `<leader>sv` | Vertical split |
-| `<leader>sh` | Horizontal split |
+| `<C-h/j/k/l>` | Navigate between tmux panes and Neovim windows seamlessly |
+
+Pane splitting is handled by tmux (`prefix + |` for vertical, `prefix + -` for horizontal).
 
 #### Buffer Navigation
 
@@ -163,6 +149,20 @@ On first launch, Neovim will automatically:
 3. Install LSP servers via Mason
 
 Run `:Mason` to manage LSP servers manually.
+
+## tmux Setup
+
+Prefix key: `C-a`
+
+| Key | Description |
+|-----|-------------|
+| `prefix + \|` | Vertical split |
+| `prefix + -` | Horizontal split |
+| `C-h/j/k/l` | Navigate panes (integrated with Neovim via vim-tmux-navigator) |
+| `prefix + H/J/K/L` | Resize panes |
+| `prefix + z` | Zoom pane toggle |
+| `prefix + v` | Enter copy mode (vi-style) |
+| `prefix + r` | Reload config |
 
 ## Requirements
 
