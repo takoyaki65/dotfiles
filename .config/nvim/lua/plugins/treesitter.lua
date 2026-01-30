@@ -24,6 +24,7 @@ return {
                 "markdown_inline",
                 "python",
                 "rust",
+                "scala",
                 "toml",
                 "tsx",
                 "typescript",

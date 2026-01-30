@@ -107,6 +107,11 @@ return {
 
             vim.lsp.config("gopls", {
                 capabilities = capabilities,
+                settings = {
+                    gopls = {
+                        semanticTokens = true,
+                    },
+                },
             })
 
             -- Enable LSP servers
