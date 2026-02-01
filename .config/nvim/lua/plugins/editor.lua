@@ -84,6 +84,7 @@ return {
                 map("n", "<leader>hr", gs.reset_hunk, { desc = "Reset hunk" })
                 map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
                 map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, { desc = "Blame line" })
+            map("n", "<leader>hd", gs.diffthis, { desc = "Diff this" })
             end,
         },
     },

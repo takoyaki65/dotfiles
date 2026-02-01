@@ -139,6 +139,11 @@ if [ -f "$HOME/.local/bin/mise" ]; then
     eval "$($HOME/.local/bin/mise activate bash)"
 fi
 
+# starship prompt
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
+fi
+
 # fzf shell integration
 if command -v fzf &> /dev/null; then
     eval "$(fzf --bash)"
