@@ -33,15 +33,13 @@ install_system_packages() {
             wget \
             git \
             trash-cli \
-            xclip \
-            tmux
+            xclip
     elif [[ "$OS" == "macos" ]]; then
         if ! command -v brew &> /dev/null; then
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
         brew install \
-            trash-cli \
-            tmux
+            trash-cli
     fi
 }
 
