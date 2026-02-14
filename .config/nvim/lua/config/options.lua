@@ -37,6 +37,7 @@ opt.clipboard = "unnamedplus"
 if os.getenv("SSH_CONNECTION") then
     vim.g.clipboard = "osc52"
 end
+opt.autowriteall = true
 opt.undofile = true
 opt.swapfile = false
 opt.updatetime = 250
