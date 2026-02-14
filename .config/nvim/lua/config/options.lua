@@ -49,3 +49,11 @@ opt.completeopt = "menu,menuone,noselect"
 -- Leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- Set compiler for filetypes
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "rust",
+    callback = function()
+        vim.cmd("compiler cargo")
+    end,
+})

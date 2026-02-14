@@ -16,6 +16,7 @@ return {
                 show_hidden = true,
             },
             win_options = {
+                signcolumn = "yes:2",
                 winbar = "%!v:lua.require('oil').get_current_dir()",
             },
             float = {
@@ -29,6 +30,20 @@ return {
                 ["<C-h>"] = false,
             },
         },
+    },
+
+    -- Git status in oil.nvim
+    {
+        "refractalize/oil-git-status.nvim",
+        dependencies = { "stevearc/oil.nvim" },
+        config = true,
+    },
+
+    -- LSP diagnostics in oil.nvim
+    {
+        "JezerM/oil-lsp-diagnostics.nvim",
+        dependencies = { "stevearc/oil.nvim" },
+        opts = {},
     },
 
     -- Auto pairs
