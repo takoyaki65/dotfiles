@@ -124,6 +124,29 @@ return {
         end,
     },
 
+    -- GitHub Copilot
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        opts = {
+            suggestion = {
+                enabled = true,
+                auto_trigger = false,
+                keymap = {
+                    accept = "<C-y>",
+                    next = "<C-]>",
+                    prev = "<C-[>",
+                    dismiss = "<C-e>",
+                },
+            },
+            panel = { enabled = false },
+        },
+        keys = {
+            { "<C-\\>", function() require("copilot.suggestion").toggle_auto_trigger() end, mode = "i", desc = "Toggle Copilot auto-trigger" },
+        },
+    },
+
     -- Autocompletion
     {
         "hrsh7th/nvim-cmp",

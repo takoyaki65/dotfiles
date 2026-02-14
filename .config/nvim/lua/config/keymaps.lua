@@ -28,6 +28,17 @@ keymap("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
 keymap("n", "n", "nzzzv", { desc = "Next search result centered" })
 keymap("n", "N", "Nzzzv", { desc = "Previous search result centered" })
 
+-- Jump past next closing delimiter in insert mode
+keymap("i", "<C-l>", function()
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    local line = vim.api.nvim_get_current_line()
+    local after = line:sub(col + 1)
+    local pos = after:find("[%)%]}>\"']")
+    if pos then
+        vim.api.nvim_win_set_cursor(0, { vim.api.nvim_win_get_cursor(0)[1], col + pos })
+    end
+end, { desc = "Jump past closing delimiter" })
+
 -- Save file
 keymap("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 keymap("n", "<leader>q", ":q<CR>", { desc = "Quit" })
