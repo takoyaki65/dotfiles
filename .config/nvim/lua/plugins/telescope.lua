@@ -13,6 +13,9 @@ return {
             {
                 "nvim-telescope/telescope-file-browser.nvim",
             },
+            {
+                "nvim-telescope/telescope-ghq.nvim",
+            },
         },
         cmd = "Telescope",
         keys = {
@@ -27,6 +30,7 @@ return {
             { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
             { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files (VSCode style)" },
             { "<leader>fe", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", desc = "File browser" },
+            { "<leader>fp", "<cmd>Telescope ghq list<cr>", desc = "Ghq projects" },
         },
         opts = {
             defaults = {
@@ -42,6 +46,7 @@ return {
             require("telescope").setup(opts)
             pcall(require("telescope").load_extension, "fzf")
             pcall(require("telescope").load_extension, "file_browser")
+            pcall(require("telescope").load_extension, "ghq")
         end,
     },
 }

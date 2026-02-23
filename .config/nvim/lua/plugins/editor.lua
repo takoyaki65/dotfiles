@@ -46,6 +46,19 @@ return {
         opts = {},
     },
 
+    -- Terminal file manager
+    {
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+        keys = {
+            { "<leader>y", "<cmd>Yazi<cr>", desc = "Open yazi at current file" },
+            { "<leader>Y", "<cmd>Yazi cwd<cr>", desc = "Open yazi at cwd" },
+        },
+        opts = {
+            open_for_directories = false, -- oil.nvim handles directory opening
+        },
+    },
+
     -- Auto pairs
     {
         "windwp/nvim-autopairs",
