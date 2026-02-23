@@ -45,7 +45,7 @@ return {
             { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss notifications" },
 
             -- Terminal
-            { "<C-/>", function() Snacks.terminal() end, desc = "Toggle terminal" },
+            { "<leader>t", function() Snacks.terminal() end, desc = "Toggle terminal" },
 
             -- Words (LSP references)
             { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next LSP reference", mode = { "n", "t" } },

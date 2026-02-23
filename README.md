@@ -168,7 +168,7 @@ Pane splitting is handled by tmux (`prefix + |` for vertical, `prefix + -` for h
 | `<leader>S` | Select scratch buffer |
 | `<leader>nn` | Notification history |
 | `<leader>nd` | Dismiss notifications |
-| `<C-/>` | Toggle floating terminal |
+| `<leader>t` | Toggle floating terminal |
 
 #### Other
 
