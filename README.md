@@ -23,7 +23,8 @@ dotfiles/
 │           │   └── lazy.lua      # Plugin manager bootstrap
 │           └── plugins/
 │               ├── colorscheme.lua  # Tokyo Night theme
-│               ├── ui.lua           # Statusline, bufferline, etc.
+│               ├── ui.lua           # Statusline, winbar, noice, etc.
+│               ├── snacks.lua       # snacks.nvim (QoL modules)
 │               ├── telescope.lua    # Fuzzy finder
 │               ├── treesitter.lua   # Syntax highlighting
 │               ├── lsp.lua          # LSP & completion
@@ -61,7 +62,9 @@ This will prompt you to select which components to install:
 
 ### Dev Tools (via mise)
 
-Development tools (Node.js, Go, Rust, uv, etc.) are managed by [mise](https://mise.jdx.dev/). See `.config/mise/config.toml` for the configured tool versions.
+Development tools are managed by [mise](https://mise.jdx.dev/). See `.config/mise/config.toml` for the configured tool versions.
+
+Includes: Node.js, Go, Rust, Java, Neovim, ripgrep, fd, fzf, bat, uv, starship, tmux, tree-sitter, ghq, yazi, lazygit
 
 ```bash
 mise install
@@ -72,10 +75,14 @@ mise install
 ### Features
 
 - **Plugin Manager**: [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **LSP Support**: Rust, TypeScript/JavaScript, Python, C/C++, Lua, Scala (Metals)
-- **Fuzzy Finder**: Telescope
+- **LSP Support**: Rust, TypeScript/JavaScript, Python, C/C++, Go, Lua, Scala (Metals)
+- **AI Completion**: GitHub Copilot
+- **Fuzzy Finder**: [Telescope](https://github.com/nvim-telescope/telescope.nvim) + ghq integration
 - **Syntax Highlighting**: Treesitter
-- **File Explorer**: Neo-tree
+- **File Explorer**: [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-style) + [yazi.nvim](https://github.com/mikavilpas/yazi.nvim) (terminal FM)
+- **Winbar**: [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim) (breadcrumb navigation)
+- **QoL Modules**: [snacks.nvim](https://github.com/folke/snacks.nvim) (indent, scroll, notifier, dashboard, lazygit, zen, etc.)
+- **UI Enhancements**: [noice.nvim](https://github.com/folke/noice.nvim) (cmdline, messages, hover)
 - **Theme**: Tokyo Night
 
 ### Key Bindings
@@ -91,7 +98,19 @@ Leader key: `Space`
 | `<leader>fg` | Live grep |
 | `<leader>fb` | Find buffers |
 | `<leader>fr` | Recent files |
-| `<leader>e` | Toggle file explorer |
+| `<leader>fp` | Ghq projects (fuzzy search repos) |
+| `<leader>fe` | File browser (Telescope) |
+| `-` | Open parent directory (oil.nvim) |
+| `<leader>e` | Open file explorer float (oil.nvim) |
+| `<leader>y` | Open yazi at current file |
+| `<leader>Y` | Open yazi at cwd |
+
+#### Winbar (dropbar.nvim)
+
+| Key | Description |
+|-----|-------------|
+| `<leader>;` | Pick symbols in winbar |
+| `[;` / `];` | Go to context start / Select next context |
 
 #### LSP
 
@@ -105,7 +124,9 @@ Leader key: `Space`
 | `<leader>rn` | Rename symbol |
 | `<leader>ca` | Code action |
 | `<leader>fm` | Format |
+| `<leader>e` | Show diagnostics (float) |
 | `[d` / `]d` | Previous/Next diagnostic |
+| `]]` / `[[` | Next/Previous LSP reference (snacks.words) |
 
 #### Window/Pane Navigation (via tmux)
 
@@ -121,25 +142,41 @@ Pane splitting is handled by tmux (`prefix + |` for vertical, `prefix + -` for h
 |-----|-------------|
 | `<S-h>` | Previous buffer |
 | `<S-l>` | Next buffer |
-| `<leader>bd` | Delete buffer |
+| `<leader>bd` / `<leader>x` | Delete buffer (preserves window layout) |
 
 #### Git
 
 | Key | Description |
 |-----|-------------|
+| `<leader>gg` | Lazygit |
+| `<leader>gB` | Open current file in GitHub |
 | `]h` / `[h` | Next/Previous hunk |
 | `<leader>hs` | Stage hunk |
 | `<leader>hr` | Reset hunk |
 | `<leader>hp` | Preview hunk |
 | `<leader>hb` | Blame line |
+| `<leader>hd` | Diff this |
+
+#### Snacks.nvim
+
+| Key | Description |
+|-----|-------------|
+| `<leader>z` | Zen mode |
+| `<leader>Z` | Zoom (maximize window) |
+| `<leader>D` | Toggle dim (focus active scope) |
+| `<leader>.` | Toggle scratch buffer |
+| `<leader>S` | Select scratch buffer |
+| `<leader>nn` | Notification history |
+| `<leader>nd` | Dismiss notifications |
+| `<C-/>` | Toggle floating terminal |
 
 #### Other
 
 | Key | Description |
 |-----|-------------|
-| `<C-\>` | Toggle terminal |
-| `<leader>?` | Show keybindings |
+| `<leader>?` | Show keybindings (which-key) |
 | `gc` | Toggle comment (visual mode) |
+| `<C-l>` | Jump past closing delimiter (insert mode) |
 
 ### First Launch
 
