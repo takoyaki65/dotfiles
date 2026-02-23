@@ -54,20 +54,6 @@ return {
         },
     },
 
-    -- Indent guides
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = {
-            indent = {
-                char = "│",
-            },
-            scope = {
-                enabled = true,
-            },
-        },
-    },
-
     -- Improved UI for messages, cmdline, and hover
     {
         "folke/noice.nvim",

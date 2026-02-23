@@ -6,8 +6,7 @@ local keymap = vim.keymap.set
 -- Buffer navigation
 keymap("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
 keymap("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer" })
-keymap("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete buffer" })
-keymap("n", "<leader>x", ":bdelete<CR>", { desc = "Close buffer" })
+-- Buffer delete is handled by snacks.bufdelete (see plugins/snacks.lua)
 
 -- Clear search highlight
 keymap("n", "<Esc>", ":nohlsearch<CR>", { desc = "Clear search highlight" })
@@ -20,9 +19,7 @@ keymap("v", ">", ">gv", { desc = "Indent right" })
 keymap("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
 keymap("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 
--- Keep cursor centered when scrolling
-keymap("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
-keymap("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+-- Smooth scrolling is handled by snacks.scroll (see plugins/snacks.lua)
 
 -- Keep cursor centered when searching
 keymap("n", "n", "nzzzv", { desc = "Next search result centered" })
