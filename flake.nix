@@ -17,34 +17,20 @@
 
   outputs = { nixpkgs, home-manager, nix-darwin, ... }:
     let
-      # Common home-manager modules shared across platforms
-      homeModules = [
-        ./nix/modules/home
-      ];
-
-      mkHome = system: home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules = homeModules ++ [
-          { home.homeDirectory = "/home/mizokami"; }
-        ];
-        extraSpecialArgs = {
-          dotfilesDir = ./.;
-        };
-      };
+      username = "mizokami";
     in
     {
       # macOS: nix-darwin + home-manager
-      darwinConfigurations."mizokami" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
           ./nix/modules/darwin
           home-manager.darwinModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.mizokami = { lib, ... }: {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = false;
+            home-manager.users.${username} = {
               imports = [ ./nix/modules/home ];
-              home.homeDirectory = lib.mkForce "/Users/mizokami";
             };
             home-manager.extraSpecialArgs = {
               dotfilesDir = ./.;
@@ -54,6 +40,18 @@
       };
 
       # Linux: standalone home-manager
-      homeConfigurations."mizokami" = mkHome "x86_64-linux";
+      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          ./nix/modules/home
+          {
+            home.username = username;
+            home.homeDirectory = "/home/${username}";
+          }
+        ];
+        extraSpecialArgs = {
+          dotfilesDir = ./.;
+        };
+      };
     };
 }

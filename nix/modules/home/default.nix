@@ -1,4 +1,4 @@
-{ pkgs, dotfilesDir, ... }:
+{ dotfilesDir, ... }:
 
 {
   imports = [
@@ -10,8 +10,7 @@
     ./tmux.nix
   ];
 
-  home.username = "mizokami";
-  home.homeDirectory = "/Users/mizokami";
+  # username / homeDirectory are set per-platform in flake.nix
 
   # Neovim config — link the raw lua files as-is
   xdg.configFile."nvim".source = "${dotfilesDir}/nvim";

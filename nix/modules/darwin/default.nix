@@ -12,6 +12,12 @@
     # Add macOS-specific packages here
   ];
 
+  # Declare user so home-manager can resolve username/homeDirectory
+  users.users.mizokami = {
+    name = "mizokami";
+    home = "/Users/mizokami";
+  };
+
   # Set fish as default shell
   programs.fish.enable = true;
 
