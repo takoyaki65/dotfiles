@@ -16,6 +16,7 @@
   users.users.mizokami = {
     name = "mizokami";
     home = "/Users/mizokami";
+    shell = pkgs.fish;
   };
 
   # Set fish as default shell

@@ -5,6 +5,9 @@
     # Editor
     neovim
 
+    # Terminal
+    (if pkgs.stdenv.isDarwin then ghostty-bin else ghostty)
+
     # Search & file utils
     ripgrep
     fd
