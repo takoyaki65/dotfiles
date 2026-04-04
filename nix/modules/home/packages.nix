@@ -5,8 +5,7 @@
     # Editor
     neovim
 
-    # Terminal
-    (if pkgs.stdenv.isDarwin then ghostty-bin else ghostty)
+    # Terminal (Ghostty is installed via Homebrew on macOS)
 
     # Search & file utils
     ripgrep
