@@ -18,6 +18,21 @@
   outputs = { nixpkgs, home-manager, nix-darwin, ... }:
     let
       username = "mizokami";
+
+      mkLinuxHomeConfig = linuxSystem:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${linuxSystem};
+          modules = [
+            ./nix/modules/home
+            {
+              home.username = username;
+              home.homeDirectory = "/home/${username}";
+            }
+          ];
+          extraSpecialArgs = {
+            dotfilesDir = ./.;
+          };
+        };
     in
     {
       # macOS: nix-darwin + home-manager
@@ -40,18 +55,9 @@
       };
 
       # Linux: standalone home-manager
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [
-          ./nix/modules/home
-          {
-            home.username = username;
-            home.homeDirectory = "/home/${username}";
-          }
-        ];
-        extraSpecialArgs = {
-          dotfilesDir = ./.;
-        };
+      homeConfigurations = {
+        ${username} = mkLinuxHomeConfig "x86_64-linux";
+        "${username}-aarch64" = mkLinuxHomeConfig "aarch64-linux";
       };
     };
 }
