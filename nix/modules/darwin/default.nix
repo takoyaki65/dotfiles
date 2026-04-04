@@ -21,6 +21,13 @@
 
   # Set fish as default shell
   programs.fish.enable = true;
+  environment.shells = [ pkgs.fish ];
+
+  # Change login shell to fish on activation
+  system.activationScripts.postActivation.text = ''
+    echo "Setting login shell to fish..."
+    sudo chsh -s /run/current-system/sw/bin/fish mizokami || true
+  '';
 
   # macOS system defaults
   system.defaults = {
