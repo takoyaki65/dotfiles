@@ -49,7 +49,7 @@ dotfiles/
 3. Apply the nix-darwin configuration (initial run):
 
    ```bash
-   nix run nix-darwin -- switch --flake .#mizokami
+   sudo nix run nix-darwin -- switch --flake .#mizokami
    ```
 
 4. Reload your shell:

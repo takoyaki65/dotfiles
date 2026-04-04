@@ -23,7 +23,7 @@
       KeyRepeat = 2;
     };
     dock = {
-      autohide = true;
+      autohide = false;
       show-recents = false;
     };
     finder = {

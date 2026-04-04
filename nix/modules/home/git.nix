@@ -3,7 +3,8 @@
 {
   programs.git = {
     enable = true;
-    userName = "Takuya Mizokami";
-    userEmail = "takoyaki65@users.noreply.github.com";
+    settings.user.name = "Takuya Mizokami";
+    settings.user.email = "takoyaki65@users.noreply.github.com";
+    signing.format = null;
   };
 }
