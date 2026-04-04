@@ -1,212 +1,106 @@
 # Dotfiles
 
-Personal dotfiles for Linux and macOS, featuring Neovim + tmux workflow with LSP support. Dev tools are managed by [mise](https://mise.jdx.dev/).
+Personal dotfiles for macOS and Linux, managed with [Nix](https://nixos.org/) (home-manager + nix-darwin).
 
 ## Structure
 
 ```
 dotfiles/
-├── .bashrc                 # Bash configuration
-├── .profile                # Shell profile
-├── .tmux.conf              # tmux configuration
-├── .config/
-│   ├── fish/
-│   │   └── config.fish     # Fish shell configuration
-│   ├── mise/
-│   │   └── config.toml     # mise tool versions (Node, Go, Rust, etc.)
-│   └── nvim/
-│       ├── init.lua        # Neovim entry point
-│       └── lua/
-│           ├── config/
-│           │   ├── options.lua   # Editor options
-│           │   ├── keymaps.lua   # Key bindings
-│           │   └── lazy.lua      # Plugin manager bootstrap
-│           └── plugins/
-│               ├── colorscheme.lua  # Tokyo Night theme
-│               ├── ui.lua           # Statusline, winbar, noice, etc.
-│               ├── snacks.lua       # snacks.nvim (QoL modules)
-│               ├── telescope.lua    # Fuzzy finder
-│               ├── treesitter.lua   # Syntax highlighting
-│               ├── lsp.lua          # LSP & completion
-│               ├── metals.lua       # Scala LSP (Metals)
-│               └── editor.lua       # File explorer, git, etc.
-├── scripts/
-│   └── utils.sh            # Common utility functions
-├── install.sh              # Installation script
-├── install_clipboard.sh    # Clipboard integration script
-├── install_coursier.sh     # Coursier (Scala) installation script
+├── flake.nix               # Nix entry point
+├── nix/modules/
+│   ├── home/               # Cross-platform (home-manager)
+│   │   ├── default.nix     # Entry point — imports all modules
+│   │   ├── packages.nix    # CLI tools (neovim, ripgrep, fd, etc.)
+│   │   ├── direnv.nix      # direnv + nix-direnv
+│   │   ├── fish.nix        # Fish shell
+│   │   ├── git.nix         # Git config
+│   │   ├── starship.nix    # Starship prompt
+│   │   └── tmux.nix        # tmux (programs.tmux)
+│   ├── darwin/             # macOS (nix-darwin)
+│   └── linux/              # Linux
+├── fish/                   # Fish shell config (raw files)
+├── nvim/                   # Neovim config (raw lua files)
+│   ├── init.lua
+│   └── lua/
+│       ├── config/         # options, keymaps, lazy.nvim bootstrap
+│       └── plugins/        # plugin specs
+├── TODO.md
+├── README.md
 └── LICENSE
 ```
 
 ## Installation
 
-### Quick Install (All Components)
+### Prerequisites
+
+Install Nix via [Determinate Nix Installer](https://determinate.systems/nix-installer/):
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+```
+
+### Clone
 
 ```bash
 git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./install.sh --all
 ```
 
-### Interactive Install
+### macOS
 
 ```bash
-./install.sh
+nix run nix-darwin -- switch --flake .#mizokami
 ```
 
-This will prompt you to select which components to install:
-- System packages (ripgrep, fd, etc.)
-- Neovim
-- Symlinks
-- Git configuration
-
-### Dev Tools (via mise)
-
-Development tools are managed by [mise](https://mise.jdx.dev/). See `.config/mise/config.toml` for the configured tool versions.
-
-Includes: Node.js, Go, Rust, Java, Neovim, ripgrep, fd, fzf, bat, uv, starship, tmux, tree-sitter, ghq, yazi, lazygit
+After the first run:
 
 ```bash
-mise install
+darwin-rebuild switch --flake .#mizokami
 ```
 
-## Neovim Setup
+### Linux
 
-### Features
+```bash
+nix run home-manager -- switch --flake .#mizokami
+```
 
-- **Plugin Manager**: [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **LSP Support**: Rust, TypeScript/JavaScript, Python, C/C++, Go, Lua, Scala (Metals)
-- **AI Completion**: GitHub Copilot
-- **Fuzzy Finder**: [Telescope](https://github.com/nvim-telescope/telescope.nvim) + ghq integration
-- **Syntax Highlighting**: Treesitter
-- **File Explorer**: [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-style) + [yazi.nvim](https://github.com/mikavilpas/yazi.nvim) (terminal FM)
-- **Winbar**: [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim) (breadcrumb navigation)
-- **QoL Modules**: [snacks.nvim](https://github.com/folke/snacks.nvim) (indent, scroll, notifier, dashboard, lazygit, zen, etc.)
-- **UI Enhancements**: [noice.nvim](https://github.com/folke/noice.nvim) (cmdline, messages, hover)
+After the first run:
+
+```bash
+home-manager switch --flake .#mizokami
+```
+
+## Dev environments
+
+Language toolchains (Go, Rust, Node, Python) are not installed globally. Each project defines its own `flake.nix` with a `devShell`:
+
+```nix
+{
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  outputs = { nixpkgs, ... }:
+    let
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      forEachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
+    in {
+      devShells = forEachSystem (pkgs: {
+        default = pkgs.mkShell {
+          packages = [ pkgs.go_1_23 pkgs.gopls ];
+        };
+      });
+    };
+}
+```
+
+Add `use flake` to the project's `.envrc` and `direnv` will activate the environment on `cd`.
+
+## Neovim
+
+- **Plugin Manager**: lazy.nvim
+- **LSP**: Go (gopls), Rust (rust-analyzer), TypeScript (ts_ls), Python (pyright), Lua (lua_ls)
+- **AI**: GitHub Copilot
+- **Fuzzy Finder**: Telescope + ghq
+- **File Explorer**: oil.nvim + yazi.nvim
 - **Theme**: Tokyo Night
-
-### Key Bindings
-
-Leader key: `Space`
-
-#### File Navigation
-
-| Key | Description |
-|-----|-------------|
-| `<C-p>` | Find files |
-| `<leader>ff` | Find files |
-| `<leader>fg` | Live grep |
-| `<leader>fb` | Find buffers |
-| `<leader>fr` | Recent files |
-| `<leader>fp` | Ghq projects (fuzzy search repos) |
-| `<leader>fe` | File browser (Telescope) |
-| `-` | Open parent directory (oil.nvim) |
-| `<leader>e` | Open file explorer float (oil.nvim) |
-| `<leader>y` | Open yazi at current file |
-| `<leader>Y` | Open yazi at cwd |
-
-#### Winbar (dropbar.nvim)
-
-| Key | Description |
-|-----|-------------|
-| `<leader>;` | Pick symbols in winbar |
-| `[;` / `];` | Go to context start / Select next context |
-
-#### LSP
-
-| Key | Description |
-|-----|-------------|
-| `gd` | Go to definition |
-| `gD` | Go to declaration |
-| `gr` | Go to references |
-| `gi` | Go to implementation |
-| `K` | Hover documentation |
-| `<leader>rn` | Rename symbol |
-| `<leader>ca` | Code action |
-| `<leader>fm` | Format |
-| `<leader>e` | Show diagnostics (float) |
-| `[d` / `]d` | Previous/Next diagnostic |
-| `]]` / `[[` | Next/Previous LSP reference (snacks.words) |
-
-#### Window/Pane Navigation (via tmux)
-
-| Key | Description |
-|-----|-------------|
-| `<C-h/j/k/l>` | Navigate between tmux panes and Neovim windows seamlessly |
-
-Pane splitting is handled by tmux (`prefix + |` for vertical, `prefix + -` for horizontal).
-
-#### Buffer Navigation
-
-| Key | Description |
-|-----|-------------|
-| `<S-h>` | Previous buffer |
-| `<S-l>` | Next buffer |
-| `<leader>bd` / `<leader>x` | Delete buffer (preserves window layout) |
-
-#### Git
-
-| Key | Description |
-|-----|-------------|
-| `<leader>gg` | Lazygit |
-| `<leader>gB` | Open current file in GitHub |
-| `]h` / `[h` | Next/Previous hunk |
-| `<leader>hs` | Stage hunk |
-| `<leader>hr` | Reset hunk |
-| `<leader>hp` | Preview hunk |
-| `<leader>hb` | Blame line |
-| `<leader>hd` | Diff this |
-
-#### Snacks.nvim
-
-| Key | Description |
-|-----|-------------|
-| `<leader>z` | Zen mode |
-| `<leader>Z` | Zoom (maximize window) |
-| `<leader>D` | Toggle dim (focus active scope) |
-| `<leader>.` | Toggle scratch buffer |
-| `<leader>S` | Select scratch buffer |
-| `<leader>nn` | Notification history |
-| `<leader>nd` | Dismiss notifications |
-| `<leader>t` | Toggle floating terminal |
-
-#### Other
-
-| Key | Description |
-|-----|-------------|
-| `<leader>?` | Show keybindings (which-key) |
-| `gc` | Toggle comment (visual mode) |
-| `<C-l>` | Jump past closing delimiter (insert mode) |
-
-### First Launch
-
-On first launch, Neovim will automatically:
-1. Install lazy.nvim plugin manager
-2. Download and install all plugins
-3. Install LSP servers via Mason
-
-Run `:Mason` to manage LSP servers manually.
-
-## tmux Setup
-
-Prefix key: `C-a`
-
-| Key | Description |
-|-----|-------------|
-| `prefix + \|` | Vertical split |
-| `prefix + -` | Horizontal split |
-| `C-h/j/k/l` | Navigate panes (integrated with Neovim via vim-tmux-navigator) |
-| `prefix + H/J/K/L` | Resize panes |
-| `prefix + z` | Zoom pane toggle |
-| `prefix + v` | Enter copy mode (vi-style) |
-| `prefix + r` | Reload config |
-
-## Requirements
-
-- Git
-- curl / wget
-- (Linux) sudo access for system packages
-- (macOS) Homebrew (auto-installed if missing)
 
 ## License
 
