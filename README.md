@@ -31,28 +31,34 @@ dotfiles/
 
 ## Installation
 
-### Prerequisites
-
-Install Nix via [Determinate Nix Installer](https://determinate.systems/nix-installer/):
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-```
-
-### Clone
-
-```bash
-git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-```
-
 ### macOS
 
-```bash
-nix run nix-darwin -- switch --flake .#mizokami
-```
+1. Install [Nix](https://github.com/NixOS/nix-installer):
 
-After the first run:
+   ```bash
+   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install
+   ```
+
+2. Clone this repository:
+
+   ```bash
+   git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+   cd ~/dotfiles
+   ```
+
+3. Apply the nix-darwin configuration (initial run):
+
+   ```bash
+   nix run nix-darwin -- switch --flake .#mizokami
+   ```
+
+4. Reload your shell:
+
+   ```bash
+   exec fish
+   ```
+
+After the first run, use:
 
 ```bash
 darwin-rebuild switch --flake .#mizokami
@@ -60,11 +66,26 @@ darwin-rebuild switch --flake .#mizokami
 
 ### Linux
 
-```bash
-nix run home-manager -- switch --flake .#mizokami
-```
+1. Install [Nix](https://github.com/NixOS/nix-installer):
 
-After the first run:
+   ```bash
+   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install
+   ```
+
+2. Clone this repository:
+
+   ```bash
+   git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+   cd ~/dotfiles
+   ```
+
+3. Apply Home Manager configuration:
+
+   ```bash
+   nix run home-manager -- switch --flake .#mizokami
+   ```
+
+After the first run, use:
 
 ```bash
 home-manager switch --flake .#mizokami

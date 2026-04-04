@@ -55,7 +55,7 @@ dotfiles/
 
 ### Phase 1: Nix 基盤の導入
 
-- [ ] Nix をインストール (Determinate Nix Installer 推奨)
+- [ ] Nix をインストール (NixOS/nix-installer: `curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install`)
 - [ ] `flake.nix` を作成 (inputs: nixpkgs, home-manager, nix-darwin)
 - [ ] `nix/modules/home/default.nix` を作成 — home-manager のエントリーポイント
 - [ ] `nix/modules/home/packages.nix` を作成 — グローバル CLI ツール群
