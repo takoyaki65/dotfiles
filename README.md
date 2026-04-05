@@ -114,6 +114,25 @@ Language toolchains (Go, Rust, Node, Python) are not installed globally. Each pr
 
 Add `use flake` to the project's `.envrc` and `direnv` will activate the environment on `cd`.
 
+## Scripts
+
+### update-flake-delayed
+
+Flake input を「最低 N 日経過したコミット」に更新するスクリプト。zero-day 攻撃やリリース直後の不具合を避けるために、最新を即座に取り込まず遅延させる。
+
+```bash
+# nixpkgs を3日以上前のコミットに更新 (デフォルト)
+./scripts/update-flake-delayed nixpkgs NixOS nixpkgs nixpkgs-unstable
+
+# home-manager を7日遅延で更新
+./scripts/update-flake-delayed -d 7 home-manager nix-community home-manager
+
+# dry-run で確認だけ
+./scripts/update-flake-delayed --dry-run nixpkgs NixOS nixpkgs nixpkgs-unstable
+```
+
+前提: `gh` (GitHub CLI) がインストール済みで認証されていること。
+
 ## Neovim
 
 - **Plugin Manager**: lazy.nvim
