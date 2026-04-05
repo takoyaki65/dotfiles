@@ -14,9 +14,12 @@
       # ~/.local/bin (claude, etc.)
       fish_add_path -g $HOME/.local/bin
 
-      # Homebrew
-      if test -x /opt/homebrew/bin/brew
-        eval "$(/opt/homebrew/bin/brew shellenv fish)"
+      # macOS: Homebrew & SSH SK provider
+      if test (uname) = Darwin
+        if test -x /opt/homebrew/bin/brew
+          eval "$(/opt/homebrew/bin/brew shellenv fish)"
+        end
+        set -gx SSH_SK_PROVIDER /usr/lib/ssh-keychain.dylib
       end
     '';
   };
