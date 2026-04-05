@@ -26,7 +26,6 @@ return {
                 "pyright",
                 "rust_analyzer",
                 "ts_ls",
-                "clangd",
                 "gopls",
             },
             automatic_installation = true,
@@ -101,10 +100,6 @@ return {
                 capabilities = capabilities,
             })
 
-            vim.lsp.config("clangd", {
-                capabilities = capabilities,
-            })
-
             vim.lsp.config("gopls", {
                 capabilities = capabilities,
                 settings = {
@@ -119,7 +114,6 @@ return {
             vim.lsp.enable("pyright")
             vim.lsp.enable("rust_analyzer")
             vim.lsp.enable("ts_ls")
-            vim.lsp.enable("clangd")
             vim.lsp.enable("gopls")
         end,
     },
