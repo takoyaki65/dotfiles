@@ -23,6 +23,7 @@
 
     # Network & data
     curl
+    wget
     jq
 
     # System tools
@@ -33,6 +34,10 @@
 
     # Shell
     shellcheck
+
+    # Rust
+    rustc
+    cargo
 
     # Python
     uv
