@@ -12,7 +12,7 @@
       set -g fish_greeting
 
       # LS_COLORS via vivid
-      set -gx LS_COLORS (vivid generate ansi)
+      set -gx LS_COLORS (vivid generate tokyonight-night)
 
       # ~/.local/bin (claude, etc.)
       fish_add_path -g $HOME/.local/bin
