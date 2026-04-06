@@ -3,36 +3,18 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        lazy = false, -- This plugin does NOT support lazy-loading
-        build = ":TSUpdate",
+        lazy = false,
         config = function()
-            require("nvim-treesitter").setup()
+            require("nvim-treesitter").setup({
+                -- Grammars are provided by Nix (TREESITTER_GRAMMARS)
+                auto_install = false,
+            })
 
-            -- Install parsers (runs async, won't block startup)
-            require("nvim-treesitter").install({
-                "bash",
-                "c",
-                "cpp",
-                "css",
-                "dockerfile",
-                "gitignore",
-                "go",
-                "html",
-                "javascript",
-                "json",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "python",
-                "rust",
-                "scala",
-                "toml",
-                "tmux",
-                "tsx",
-                "typescript",
-                "vim",
-                "vimdoc",
-                "yaml",
+            -- Enable treesitter highlighting for all filetypes
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function(args)
+                    pcall(vim.treesitter.start, args.buf)
+                end,
             })
         end,
     },

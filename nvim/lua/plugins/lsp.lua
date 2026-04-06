@@ -21,14 +21,10 @@ return {
         lazy = false,
         dependencies = { "mason-org/mason.nvim" },
         opts = {
-            ensure_installed = {
-                "lua_ls",
-                "pyright",
-                "rust_analyzer",
-                "ts_ls",
-                "gopls",
-            },
-            automatic_installation = true,
+            -- LSP servers are managed by Nix (programs.neovim.extraPackages)
+            -- Mason is kept for optional manual installs only
+            ensure_installed = {},
+            automatic_installation = false,
         },
     },
 

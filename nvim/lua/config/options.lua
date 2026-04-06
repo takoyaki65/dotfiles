@@ -1,5 +1,11 @@
 -- options.lua: Neovim basic settings
 
+-- Add Nix-provided tree-sitter grammars to runtimepath
+local treesitter_grammars = vim.env.TREESITTER_GRAMMARS
+if treesitter_grammars then
+    vim.opt.runtimepath:append(treesitter_grammars)
+end
+
 local opt = vim.opt
 
 -- Line numbers

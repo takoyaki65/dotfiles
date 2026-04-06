@@ -2,9 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    # Editor
-    neovim
-
     # Terminal (Ghostty is installed via Homebrew on macOS)
 
     # Search & file utils
@@ -14,7 +11,6 @@
     bat
     eza
     yazi
-    tree-sitter
     dust
     zoxide
 
