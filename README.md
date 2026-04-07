@@ -39,20 +39,26 @@ dotfiles/
    curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install
    ```
 
-2. Clone this repository:
+2. Install [Homebrew](https://brew.sh/) (required for casks and Mac App Store apps):
+
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+3. Clone this repository:
 
    ```bash
    git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
    cd ~/dotfiles
    ```
 
-3. Apply the nix-darwin configuration (initial run):
+4. Apply the nix-darwin configuration (initial run):
 
    ```bash
    sudo nix run nix-darwin -- switch --flake .#mizokami
    ```
 
-4. Reload your shell:
+5. Reload your shell:
 
    ```bash
    exec fish

@@ -46,6 +46,21 @@
     };
   };
 
+  # Homebrew configuration (managed declaratively by nix-darwin)
+  homebrew = {
+    enable = true;
+    onActivation.cleanup = "uninstall";
+
+    casks = [
+      "discord"
+      "ghostty"
+    ];
+
+    masApps = {
+      "Slack" = 803453959;
+    };
+  };
+
   # Used for backwards compatibility
   system.stateVersion = 6;
 }

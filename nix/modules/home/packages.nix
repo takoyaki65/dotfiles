@@ -31,6 +31,7 @@
     htop
     vivid
     direnv
+    mas
 
     # Shell
     shellcheck
