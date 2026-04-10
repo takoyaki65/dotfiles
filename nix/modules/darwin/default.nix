@@ -52,6 +52,8 @@
     onActivation.cleanup = "uninstall";
 
     casks = [
+      "cloudflare-warp"
+      "cmux"
       "discord"
       "ghostty"
     ];

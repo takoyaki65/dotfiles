@@ -45,7 +45,10 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = false;
             home-manager.users.${username} = {
-              imports = [ ./nix/modules/home ];
+              imports = [
+                ./nix/modules/home
+                ./nix/modules/darwin/packages.nix
+              ];
             };
             home-manager.extraSpecialArgs = {
               dotfilesDir = ./.;
