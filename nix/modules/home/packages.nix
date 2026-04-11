@@ -36,8 +36,7 @@
     shellcheck
 
     # Rust
-    rustc
-    cargo
+    rustup
 
     # Python
     uv
