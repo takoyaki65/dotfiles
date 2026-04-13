@@ -171,7 +171,12 @@ return {
             -- Load snippets
             require("luasnip.loaders.from_vscode").lazy_load()
 
+            vim.o.completeopt = "menuone,noinsert,noselect"
+
             cmp.setup({
+                completion = {
+                    completeopt = "menu,menuone,noinsert,noselect",
+                },
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
@@ -182,7 +187,14 @@ return {
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<CR>"] = cmp.mapping(function(fallback)
+                        local entry = cmp.get_selected_entry()
+                        if cmp.visible() and entry ~= nil then
+                            cmp.confirm({ select = false })
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
