@@ -10,7 +10,7 @@ let
     font-size = 13;
     font-feature = [ "-dlig" ];
 
-    background-opacity = 0.70;
+    background-opacity = 0.90;
     background-blur-radius = 20;
 
     theme = "Kanagawa Dragon";
