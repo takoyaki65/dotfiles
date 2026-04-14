@@ -11,6 +11,9 @@
       # Disable greeting
       set -g fish_greeting
 
+      # Nerd Fonts (UDEV Gothic NF) for themes/prompts
+      set -gx theme_nerd_fonts yes
+
       # LS_COLORS via vivid
       set -gx LS_COLORS (vivid generate tokyonight-night)
 

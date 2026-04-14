@@ -12,6 +12,13 @@
     # Add macOS-specific packages here
   ];
 
+  fonts = {
+    packages = with pkgs; [
+      udev-gothic
+      udev-gothic-nf
+    ];
+  };
+
   # Declare user so home-manager can resolve username/homeDirectory
   users.users.mizokami = {
     name = "mizokami";
