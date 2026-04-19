@@ -62,6 +62,7 @@
       "claude"
       "cloudflare-warp"
       "cmux"
+      "codex-app"
       "discord"
       "ghostty"
     ];

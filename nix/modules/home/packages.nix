@@ -40,5 +40,9 @@
 
     # Python
     uv
+
+    # Node.js
+    nodejs_24
+    pnpm
   ];
 }
