@@ -113,45 +113,6 @@ return {
             vim.lsp.enable("gopls")
         end,
     },
-
-    -- GitHub Copilot
-    {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        dependencies = {
-            {
-                "copilotlsp-nvim/copilot-lsp",
-                init = function()
-                    vim.g.copilot_nes_debounce = 500
-                end,
-            },
-        },
-        opts = {
-            suggestion = {
-                enabled = true,
-                auto_trigger = false,
-                keymap = {
-                    accept = "<C-s>",
-                    next = "<C-]>",
-                    prev = "<C-[>",
-                    dismiss = "<C-e>",
-                },
-            },
-            panel = { enabled = false },
-            nes = {
-                enabled = true,
-                keymap = {
-                    accept_and_goto = "<Tab>",
-                    dismiss = "<Esc>",
-                },
-            },
-        },
-        keys = {
-            { "<C-\\>", function() require("copilot.suggestion").toggle_auto_trigger() end, mode = "i", desc = "Toggle Copilot auto-trigger" },
-        },
-    },
-
     -- Autocompletion
     {
         "hrsh7th/nvim-cmp",
