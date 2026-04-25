@@ -36,6 +36,13 @@ keymap("i", "<C-l>", function()
     end
 end, { desc = "Jump past closing delimiter" })
 
+-- Diff
+keymap("n", "<leader>dr", function()
+    vim.cmd("diffoff!")
+    vim.cmd("windo diffthis")
+end, { desc = "Reset and re-apply diff" })
+keymap("n", "<leader>do", ":diffoff!<CR>", { desc = "Diff off (all windows)" })
+
 -- Save file
 keymap("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 keymap("n", "<leader>q", ":q<CR>", { desc = "Quit" })

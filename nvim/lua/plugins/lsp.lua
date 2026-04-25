@@ -135,6 +135,7 @@ return {
             vim.o.completeopt = "menuone,noinsert,noselect"
 
             cmp.setup({
+                preselect = cmp.PreselectMode.None,
                 completion = {
                     completeopt = "menu,menuone,noinsert,noselect",
                 },
