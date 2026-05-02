@@ -16,6 +16,7 @@ in
     extraPackages = with pkgs; [
       # Language servers
       lua-language-server
+      nixd
       pyright
       rust-analyzer
       typescript-language-server
