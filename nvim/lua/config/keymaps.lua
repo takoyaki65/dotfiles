@@ -43,6 +43,12 @@ keymap("n", "<leader>dr", function()
 end, { desc = "Reset and re-apply diff" })
 keymap("n", "<leader>do", ":diffoff!<CR>", { desc = "Diff off (all windows)" })
 
+-- Markdown preview (gh-markdown-preview)
+keymap("n", "<leader>mp", function()
+    local file = vim.fn.expand("%:p")
+    vim.fn.jobstart({ "gh", "markdown-preview", file }, { detach = true })
+end, { desc = "Markdown preview (GitHub style)" })
+
 -- Save file
 keymap("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 keymap("n", "<leader>q", ":q<CR>", { desc = "Quit" })

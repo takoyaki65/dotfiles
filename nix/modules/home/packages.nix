@@ -16,7 +16,6 @@
 
     # Git & project management
     git
-    gh
     ghq
     lazygit
     delta

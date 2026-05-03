@@ -6,6 +6,7 @@
     ./neovim.nix
     ./direnv.nix
     ./fish.nix
+    ./gh.nix
     ./ghostty.nix
     ./git.nix
     ./starship.nix
