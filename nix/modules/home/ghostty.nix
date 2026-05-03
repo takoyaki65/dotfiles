@@ -23,7 +23,7 @@ let
 
     mouse-hide-while-typing = true;
 
-    working-directory = "inherit";
+    working-directory = "home";
   };
 in
 {

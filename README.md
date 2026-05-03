@@ -24,7 +24,6 @@ dotfiles/
 │   └── lua/
 │       ├── config/         # options, keymaps, lazy.nvim bootstrap
 │       └── plugins/        # plugin specs
-├── TODO.md
 ├── README.md
 └── LICENSE
 ```
