@@ -2,7 +2,7 @@
   description = "mizokami's dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -42,6 +42,7 @@
           ./nix/modules/darwin
           home-manager.darwinModules.home-manager
           {
+            home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = false;
             home-manager.users.${username} = {
