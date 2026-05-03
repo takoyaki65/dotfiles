@@ -44,10 +44,21 @@ end, { desc = "Reset and re-apply diff" })
 keymap("n", "<leader>do", ":diffoff!<CR>", { desc = "Diff off (all windows)" })
 
 -- Markdown preview (gh-markdown-preview)
+local _md_preview_job = nil
 keymap("n", "<leader>mp", function()
+    if _md_preview_job then
+        vim.fn.jobstop(_md_preview_job)
+    end
     local file = vim.fn.expand("%:p")
-    vim.fn.jobstart({ "gh", "markdown-preview", file }, { detach = true })
+    _md_preview_job = vim.fn.jobstart({ "gh", "markdown-preview", file })
 end, { desc = "Markdown preview (GitHub style)" })
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function()
+        if _md_preview_job then
+            vim.fn.jobstop(_md_preview_job)
+        end
+    end,
+})
 
 -- Save file
 keymap("n", "<leader>w", ":w<CR>", { desc = "Save file" })
