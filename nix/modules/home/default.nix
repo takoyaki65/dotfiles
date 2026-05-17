@@ -1,4 +1,4 @@
-{ dotfilesDir, ... }:
+{ ... }:
 
 {
   imports = [
@@ -15,6 +15,6 @@
 
   # username / homeDirectory are set per-platform in flake.nix
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.11";
   programs.home-manager.enable = true;
 }
