@@ -17,9 +17,6 @@
       # LS_COLORS via vivid
       set -gx LS_COLORS (vivid generate tokyonight-night)
 
-      # ~/.local/bin (claude, etc.)
-      fish_add_path -g $HOME/.local/bin
-
       # macOS: Homebrew & SSH SK provider
       if test (uname) = Darwin
         if test -x /opt/homebrew/bin/brew

@@ -2,16 +2,6 @@
 
 nix-build + lint の基本 CI は導入済み。以下は今後対応する項目。
 
-## Flake input の自動更新 (遅延付き)
-
-- [ ] GitHub App を作成し、bot identity で自動 PR を作れるようにする
-- [ ] `update-flake-input` composite action を作成 — input 単位で更新 + `minimumReleaseAge` チェック (3日)
-- [ ] `discover-flake-inputs` composite action を作成 — flake.lock から input を列挙し matrix 生成
-- [ ] `_update-flake-reusable.yaml` — 上記を組み合わせた reusable workflow
-- [ ] `update-flake.yaml` — 日次 cron で stable input を更新 (3日遅延)
-- [ ] 自動更新 PR のビルドが通ったら auto-merge (squash) する仕組み
-- [ ] `auto-rebase.yaml` — main 更新時に open 中の update PR を自動リベース
-
 ## Renovate の導入
 
 - [ ] `.github/renovate.json5` を作成 — GitHub Actions の SHA ピン留めを自動更新

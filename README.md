@@ -9,21 +9,9 @@ dotfiles/
 ├── flake.nix               # Nix entry point
 ├── nix/modules/
 │   ├── home/               # Cross-platform (home-manager)
-│   │   ├── default.nix     # Entry point — imports all modules
-│   │   ├── packages.nix    # CLI tools (neovim, ripgrep, fd, etc.)
-│   │   ├── direnv.nix      # direnv + nix-direnv
-│   │   ├── fish.nix        # Fish shell
-│   │   ├── git.nix         # Git config
-│   │   ├── starship.nix    # Starship prompt
-│   │   └── tmux.nix        # tmux (programs.tmux)
 │   ├── darwin/             # macOS (nix-darwin)
 │   └── linux/              # Linux
-├── fish/                   # Fish shell config (raw files)
 ├── nvim/                   # Neovim config (raw lua files)
-│   ├── init.lua
-│   └── lua/
-│       ├── config/         # options, keymaps, lazy.nvim bootstrap
-│       └── plugins/        # plugin specs
 ├── README.md
 └── LICENSE
 ```
@@ -34,8 +22,9 @@ dotfiles/
 
 1. Install [Nix](https://github.com/NixOS/nix-installer):
 
+   We assume `curl` is installed by default.
    ```bash
-   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install
+   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
    ```
 
 2. Install [Homebrew](https://brew.sh/) (required for casks and Mac App Store apps):
@@ -46,8 +35,9 @@ dotfiles/
 
 3. Clone this repository:
 
+   `git` is not installed by default, so use git from `nix-shell`.
    ```bash
-   git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+   nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
    cd ~/dotfiles
    ```
 
@@ -63,10 +53,10 @@ dotfiles/
    exec fish
    ```
 
-After the first run, use:
+After the first run, run this command to sync your environment with this config.
 
 ```bash
-darwin-rebuild switch --flake .#mizokami
+sudo darwin-rebuild switch --flake .#mizokami
 ```
 
 ### Linux
@@ -74,13 +64,13 @@ darwin-rebuild switch --flake .#mizokami
 1. Install [Nix](https://github.com/NixOS/nix-installer):
 
    ```bash
-   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install
+   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
    ```
 
-2. Clone this repository:
+2. Clone this repository with Git from Nix:
 
    ```bash
-   git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+   nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
    cd ~/dotfiles
    ```
 
@@ -90,53 +80,11 @@ darwin-rebuild switch --flake .#mizokami
    nix run home-manager -- switch --flake .#mizokami
    ```
 
-After the first run, use:
+After the first run, run this command to sync your environment with this confiyour environment with this config.
 
 ```bash
-home-manager switch --flake .#mizokami
+sudo home-manager switch --flake .#mizokami
 ```
-
-## Dev environments
-
-Language toolchains (Go, Rust, Node, Python) are not installed globally. Each project defines its own `flake.nix` with a `devShell`:
-
-```nix
-{
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { nixpkgs, ... }:
-    let
-      systems = [ "x86_64-linux" "aarch64-darwin" ];
-      forEachSystem = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
-    in {
-      devShells = forEachSystem (pkgs: {
-        default = pkgs.mkShell {
-          packages = [ pkgs.go_1_23 pkgs.gopls ];
-        };
-      });
-    };
-}
-```
-
-Add `use flake` to the project's `.envrc` and `direnv` will activate the environment on `cd`.
-
-## Scripts
-
-### update-flake-delayed
-
-Flake input を「最低 N 日経過したコミット」に更新するスクリプト。zero-day 攻撃やリリース直後の不具合を避けるために、最新を即座に取り込まず遅延させる。
-
-```bash
-# nixpkgs を3日以上前のコミットに更新 (デフォルト)
-./scripts/update-flake-delayed nixpkgs NixOS nixpkgs nixpkgs-unstable
-
-# home-manager を7日遅延で更新
-./scripts/update-flake-delayed -d 7 home-manager nix-community home-manager
-
-# dry-run で確認だけ
-./scripts/update-flake-delayed --dry-run nixpkgs NixOS nixpkgs nixpkgs-unstable
-```
-
-前提: `gh` (GitHub CLI) がインストール済みで認証されていること。
 
 ## Neovim
 
