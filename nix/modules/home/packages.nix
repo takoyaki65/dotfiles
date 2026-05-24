@@ -4,15 +4,23 @@
   home.packages = with pkgs; [
     # Terminal (Ghostty is installed via Homebrew on macOS)
 
-    # Search & file utils
+    # Essentials
+    tmux
+    neovim
+
+    # Search & file utilities
     ripgrep
     fd
     fzf
+    zoxide
     bat
     eza
+    jq
+    dust
     yazi
     dust
     zoxide
+    trash-cli
 
     # Git & project management
     git
@@ -23,25 +31,19 @@
     # Network & data
     curl
     wget
-    jq
 
     # System tools
-    tmux
     htop
     vivid
     direnv
 
-    # Shell
+    # Miscellaneous utilities
+    fixjson
     shellcheck
 
-    # Rust
-    rustup
-
-    # Python
-    uv
-
-    # Node.js
+    # Package Managers
     nodejs_24
     pnpm
+    uv
   ];
 }

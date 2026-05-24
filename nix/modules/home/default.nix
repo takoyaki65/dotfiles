@@ -10,7 +10,7 @@
     ./ghostty.nix
     ./git.nix
     ./starship.nix
-    ./tmux.nix
+    ./ai-tools.nix
   ];
 
   # username / homeDirectory are set per-platform in flake.nix
