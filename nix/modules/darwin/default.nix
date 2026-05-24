@@ -26,18 +26,11 @@
   users.users.mizokami = {
     name = "mizokami";
     home = "/Users/mizokami";
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
-  # Set fish as default shell
-  programs.fish.enable = true;
-  environment.shells = [ pkgs.fish ];
-
-  # Change login shell to fish on activation
-  system.activationScripts.postActivation.text = ''
-    echo "Setting login shell to fish..."
-    sudo chsh -s /run/current-system/sw/bin/fish mizokami || true
-  '';
+  # Set zsh as default shell
+  environment.shells = [ pkgs.zsh ];
 
   # macOS system defaults
   system.defaults = {
@@ -66,6 +59,7 @@
       "cmux"
       "codex-app"
       "discord"
+      "ghostty"
     ];
 
     masApps = {
