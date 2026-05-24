@@ -6,7 +6,6 @@
 
     # Essentials
     tmux
-    neovim
 
     # Search & file utilities
     ripgrep

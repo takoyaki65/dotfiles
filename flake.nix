@@ -1,6 +1,11 @@
 {
   description = "mizokami's dotfiles";
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
+
   inputs = {
     # Pin our primary nixpkgs repository. This is the main nixpkgs repository
     # we'll use for our configurations. Be very careful changing this because
@@ -57,6 +62,9 @@
       darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
+          {
+            nixpkgs.pkgs = mkPkgs "aarch64-darwin";
+          }
           ./nix/modules/darwin
           home-manager.darwinModules.home-manager
           {

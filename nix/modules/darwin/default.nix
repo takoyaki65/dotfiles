@@ -5,7 +5,10 @@
   system.primaryUser = "mizokami";
 
   # Nix settings
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    trusted-users = [ "root" "mizokami" ];
+  };
 
   # System packages (macOS only)
   environment.systemPackages = with pkgs; [
