@@ -7,6 +7,10 @@ runs:
       uses: cachix/install-nix-action@96951a368ba55167b55f1c916f7d416bac6505fe # v31.10.3
       with:
         github_access_token: ${{ github.token }}
+        extra_nix_config: |
+          accept-flake-config = true
+          extra-substituters = https://cache.numtide.com
+          extra-trusted-public-keys = niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
 
     - name: Cache Nix store
       uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
