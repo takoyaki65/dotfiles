@@ -62,13 +62,10 @@
     onActivation.cleanup = "uninstall";
 
     casks = [
-      "claude"
       "cloudflare-warp"
       "cmux"
-      "codex"
       "codex-app"
       "discord"
-      "ghostty"
     ];
 
     masApps = {
