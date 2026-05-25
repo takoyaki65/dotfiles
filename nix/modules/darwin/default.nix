@@ -29,7 +29,6 @@
     shell = pkgs.zsh;
   };
 
-  # Set zsh as default shell
   environment.shells = [ pkgs.zsh ];
 
   # macOS system defaults
