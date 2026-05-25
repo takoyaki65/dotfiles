@@ -29,6 +29,8 @@
     shell = pkgs.fish;
   };
 
+  programs.fish.enable = true;
+
   # Add fish shells to system shells
   environment.shells = [ pkgs.fish ];
 
