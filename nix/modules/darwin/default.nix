@@ -26,10 +26,11 @@
   users.users.mizokami = {
     name = "mizokami";
     home = "/Users/mizokami";
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
-  environment.shells = [ pkgs.zsh ];
+  # Add fish shells to system shells
+  environment.shells = [ pkgs.fish ];
 
   # macOS system defaults
   system.defaults = {
