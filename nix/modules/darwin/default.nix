@@ -49,6 +49,8 @@
       AppleShowAllExtensions = true;
       FXPreferredViewStyle = "clmv";
     };
+    # Reduce motion when switching between screens or opening apps
+    universalaccess.reduceMotion = true;
   };
 
   # Homebrew configuration (managed declaratively by nix-darwin)
