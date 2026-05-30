@@ -40,10 +40,17 @@
       AppleShowAllExtensions = true;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
+      # Disable switching to a workspace that has a window of the application open,
+      # to prevent conflicts of Aerospace
+      AppleSpacesSwitchOnActivate = false;
     };
     dock = {
       autohide = false;
       show-recents = false;
+      # Disable auto-rearrange feature for spaces, to improve consistency
+      mru-spaces = false;
+      # Disable grouping windows by application in Mission Control's expose
+      expose-group-apps = false;
     };
     finder = {
       AppleShowAllExtensions = true;
@@ -51,6 +58,8 @@
     };
     # Reduce motion when switching between screens or opening apps
     universalaccess.reduceMotion = true;
+    # Displays have different spaces
+    spaces.spans-displays = false;
   };
 
   # Homebrew configuration (managed declaratively by nix-darwin)
