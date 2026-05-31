@@ -62,6 +62,10 @@
     spaces.spans-displays = false;
   };
 
+  imports = [
+    ./aerospace.nix
+  ];
+
   # Homebrew configuration (managed declaratively by nix-darwin)
   homebrew = {
     enable = true;
