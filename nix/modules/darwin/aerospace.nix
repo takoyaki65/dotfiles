@@ -140,6 +140,9 @@
             alt-shift-m = "move-node-to-workspace M"; # Mail
             alt-shift-s = "move-node-to-workspace S"; # Slack / Discord
             alt-shift-t = "move-node-to-workspace T"; # Terminal
+            
+            # Fullscreen currently focuse window
+            alt-shift-f = "fullscreen";
 
             # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
             alt-tab = "workspace-back-and-forth";
