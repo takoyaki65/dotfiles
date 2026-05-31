@@ -181,7 +181,7 @@
         }
         {
           check-further-callbacks = false;
-          "if".app-id = "com.apple.main";
+          "if".app-id = "com.apple.mail";
           run = [
             "move-node-to-workspace M"
           ];
