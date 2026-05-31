@@ -8,8 +8,10 @@
       keepAlive = true;
     };
     settings = {
-      # Start Aerospace at login
-      start-at-login = true;
+      # This value is false because launched agents are now handled by launchd
+      # start-at-login = false;
+      # after-login-command = [];
+      accordion-padding = 16;
       gaps = {
         outer.left = 8;
         outer.bottom = 8;
@@ -19,6 +21,9 @@
       mode = {
         main = {
           binding = {
+            # Layout
+            alt-slash = "layout tiles horizontal vertical";
+            alt-comma = "layout accordion horizontal vertical";
             # Focus window
             alt-h = "focus left";
             alt-j = "focus down";
