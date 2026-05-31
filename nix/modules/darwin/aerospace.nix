@@ -63,19 +63,85 @@
       mode = {
         main = {
           binding = {
+            # All possible keys:
+            # - Letters.        a, b, c, ..., z
+            # - Numbers.        0, 1, 2, ..., 9
+            # - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
+            # - F-keys.         f1, f2, ..., f20
+            # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon,
+            #                   backtick, leftSquareBracket, rightSquareBracket, space, enter, esc,
+            #                   backspace, tab, pageUp, pageDown, home, end, forwardDelete,
+            #                   sectionSign (ISO keyboards only, european keyboards only)
+            # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
+            #                   keypadMinus, keypadMultiply, keypadPlus
+            # - Arrows.         left, down, up, right
+
+            # All possible modifiers: cmd, alt, ctrl, shift
+
+            # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
+
+            # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+            # You can uncomment the following lines to open up terminal with alt + enter shortcut
+            # (like in i3)
+            # alt-enter = '''exec-and-forget osascript -e '
+            # tell application "Terminal"
+            #     do script
+            #     activate
+            # end tell'
+            # '''
+
             # Layout
             alt-slash = "layout tiles horizontal vertical";
             alt-comma = "layout accordion horizontal vertical";
+            
             # Focus window
             alt-h = "focus left";
             alt-j = "focus down";
             alt-k = "focus up";
             alt-l = "focus right";
+            
             # Move window
             alt-shift-h = "move left";
             alt-shift-j = "move down";
             alt-shift-k = "move up";
             alt-shift-l = "move right";
+
+            # See: https://nikitabobko.github.io/AeroSpace/commands#resize
+            alt-minus = "resize smart -50";
+            alt-equal = "resize smart +50";
+
+            # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+            alt-1 = "workspace 1";
+            alt-2 = "workspace 2";
+            alt-3 = "workspace 3";
+            alt-4 = "workspace 4";
+            alt-5 = "workspace 5";
+            alt-6 = "workspace 6";
+            alt-7 = "workspace 7";
+            alt-8 = "workspace 8";
+            alt-9 = "workspace 9";
+            alt-a = "workspace A"; # In your config, you can drop workspace bindings that you don't need
+            alt-b = "workspace B";
+            alt-c = "workspace C";
+            alt-d = "workspace D";
+            alt-e = "workspace E";
+            alt-f = "workspace F";
+            alt-g = "workspace G";
+            alt-i = "workspace I";
+            alt-m = "workspace M";
+            alt-n = "workspace N";
+            alt-o = "workspace O";
+            alt-p = "workspace P";
+            alt-q = "workspace Q";
+            alt-r = "workspace R";
+            alt-s = "workspace S";
+            alt-t = "workspace T";
+            alt-u = "workspace U";
+            alt-v = "workspace V";
+            alt-w = "workspace W";
+            alt-x = "workspace X";
+            alt-y = "workspace Y";
+            alt-z = "workspace Z";
           };
         };
       };
