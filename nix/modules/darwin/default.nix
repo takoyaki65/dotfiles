@@ -49,8 +49,9 @@
       show-recents = false;
       # Disable auto-rearrange feature for spaces, to improve consistency
       mru-spaces = false;
-      # Disable grouping windows by application in Mission Control's expose
-      expose-group-apps = false;
+      # Enable grouping windows by application in Mission Control's expose
+      # Because preventing smaller looks when enabling Aerospace
+      expose-group-apps = true;
     };
     finder = {
       AppleShowAllExtensions = true;
