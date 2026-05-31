@@ -76,6 +76,8 @@
                 ./nix/modules/home
                 # User spaecific package
                 ./nix/modules/darwin/packages.nix
+                # User specific settings of Aerospace
+                ./nix/modules/darwin/aerospace.nix
               ];
             };
             home-manager.extraSpecialArgs = {
