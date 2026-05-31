@@ -107,6 +107,7 @@
             alt-shift-l = "move right";
 
             # See: https://nikitabobko.github.io/AeroSpace/commands#resize
+            # "=" is hard to use for JIS keyboard, so we use "ctrl-h/l"
             alt-ctrl-h = "resize smart -50";
             alt-ctrl-l = "resize smart +50";
 
@@ -142,6 +143,11 @@
             alt-x = "workspace X";
             alt-y = "workspace Y";
             alt-z = "workspace Z";
+
+            # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+            alt-tab = "workspace-back-and-forth";
+            # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+            alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
           };
         };
       };
