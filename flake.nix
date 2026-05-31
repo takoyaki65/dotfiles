@@ -74,7 +74,10 @@
             home-manager.users.${username} = {
               imports = [
                 ./nix/modules/home
+                # User spaecific package
                 ./nix/modules/darwin/packages.nix
+                # User specific settings for Aerospace window manager
+                ./nix/modules/darwin/aerospace.nix
               ];
             };
             home-manager.extraSpecialArgs = {
