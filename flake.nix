@@ -65,7 +65,7 @@
           {
             nixpkgs.pkgs = mkPkgs "aarch64-darwin";
           }
-          ./nix/modules/darwin
+          ./nix/modules/darwin/system.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
@@ -74,10 +74,7 @@
             home-manager.users.${username} = {
               imports = [
                 ./nix/modules/home
-                # User spaecific package
-                ./nix/modules/darwin/packages.nix
-                # User specific settings of Aerospace
-                ./nix/modules/darwin/aerospace.nix
+                ./nix/modules/darwin
               ];
             };
             home-manager.extraSpecialArgs = {
