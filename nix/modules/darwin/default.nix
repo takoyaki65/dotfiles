@@ -34,6 +34,11 @@
   # Add fish shells to system shells
   environment.shells = [ pkgs.fish ];
 
+  # Enable Touch ID and Apple Watch for sudo (including tmux support via pam-reattach)
+  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.watchIdAuth = true;
+  security.pam.services.sudo_local.reattach = true;
+
   # macOS system defaults
   system.defaults = {
     NSGlobalDomain = {
