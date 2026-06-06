@@ -42,7 +42,7 @@
       # even when they are invisible.
       # This config version is only available since 'config-version = 2'
       # Fallback value (if you omit the key): persistent-workspaces = []
-      persistent-workspaces = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "B" "M" "S" "T"];
+      persistent-workspaces = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "B" "D" "M" "S" "T"];
       
       # A callback that runs every time binding mode changes
       # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -123,7 +123,8 @@
             alt-9 = "workspace 9";
             alt-b = "workspace B"; # Browser
             alt-m = "workspace M"; # Mail
-            alt-s = "workspace S"; # Slack / Discord
+            alt-s = "workspace S"; # Slack
+            alt-d = "workspace D"; # Discord
             alt-t = "workspace T"; # Terminal
 
             # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -138,7 +139,8 @@
             alt-shift-9 = "move-node-to-workspace 9";
             alt-shift-b = "move-node-to-workspace B"; # Browser
             alt-shift-m = "move-node-to-workspace M"; # Mail
-            alt-shift-s = "move-node-to-workspace S"; # Slack / Discord
+            alt-shift-s = "move-node-to-workspace S"; # Slack
+            alt-shift-d = "move-node-to-workspace D"; # Discord
             alt-shift-t = "move-node-to-workspace T"; # Terminal
             
             # Fullscreen currently focuse window
@@ -200,7 +202,7 @@
           check-further-callbacks = false;
           "if".app-id = "com.hnc.Discord";
           run = [
-            "move-node-to-workspace S"
+            "move-node-to-workspace D"
           ];
         }
         {
