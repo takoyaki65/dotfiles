@@ -31,8 +31,6 @@
 
   programs.fish.enable = true;
 
-  services.karabiner-elements.enable = true;
-
   # Add fish shells to system shells
   environment.shells = [ pkgs.fish ];
 
@@ -81,6 +79,7 @@
       "codex-app"
       "discord"
       "ghostty"
+      "karabiner-elements"
     ];
 
     masApps = {
