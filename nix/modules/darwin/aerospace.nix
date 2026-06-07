@@ -54,6 +54,8 @@
       key-mapping.preset = "qwerty";
 
       gaps = {
+        inner.horizontal = 2;
+        inner.vertical = 2;
         outer.left = 8;
         outer.bottom = 8;
         outer.top = 8;
