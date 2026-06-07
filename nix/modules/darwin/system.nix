@@ -88,5 +88,5 @@
   };
 
   # Used for backwards compatibility
-  system.stateVersion = 6;
+  system.stateVersion = 7;
 }
