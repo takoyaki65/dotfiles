@@ -71,6 +71,8 @@
   # Window border settings
   services.jankyborders = {
     enable = true;
+    active_color = "0xCCFF9500";
+    inactive_color = "0x66808080";
   };
 
   # Homebrew configuration (managed declaratively by nix-darwin)
