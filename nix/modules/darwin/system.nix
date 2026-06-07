@@ -68,6 +68,11 @@
     spaces.spans-displays = false;
   };
 
+  # Window border settings
+  services.jankyborders = {
+    enable = true;
+  };
+
   # Homebrew configuration (managed declaratively by nix-darwin)
   homebrew = {
     enable = true;
