@@ -1,8 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  # programs.starship is intentionally OFF: its shell integrations ride on
-  # HM-generated shell configs, and fish init is done via the config cache in
+  # programs.starship is intentionally OFF: fish init is done via the config cache in
   # config/fish/config.fish instead.
   home.packages = [ pkgs.starship ];
 
