@@ -17,5 +17,5 @@
   );
 
   # macOS-specific dotfile symlinks
-  xdg.configFile."karabiner/karabiner.json".source = "${dotfilesDir}/karabiner/karabiner.json";
+  xdg.configFile."karabiner/karabiner.json".source = "${dotfilesDir}/config/karabiner/karabiner.json";
 }

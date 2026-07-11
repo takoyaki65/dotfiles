@@ -1,5 +1,11 @@
 -- options.lua: Neovim basic settings
 
+-- Disable unused providers (was in the home-manager generated init.lua)
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_python3_provider = 0
+
 -- Add Nix-provided tree-sitter grammars to runtimepath
 local treesitter_grammars = vim.env.TREESITTER_GRAMMARS
 if treesitter_grammars then

@@ -1,33 +1,16 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  programs.fish = {
-    enable = true;
-    shellAliases = {
-      del = "trash";
-      delete = "trash";
-    };
-    interactiveShellInit = ''
-      # Disable greeting
-      set -g fish_greeting
-
-      # Nerd Fonts (UDEV Gothic NF) for themes/prompts
-      set -gx theme_nerd_fonts yes
-
-      # LS_COLORS via vivid
-      set -gx LS_COLORS (vivid generate tokyonight-night)
-
-      # macOS: Homebrew & SSH SK provider
-      if test (uname) = Darwin
-        if test -x /opt/homebrew/bin/brew
-          eval "$(/opt/homebrew/bin/brew shellenv fish)"
-        end
-        set -gx SSH_SK_PROVIDER /usr/lib/ssh-keychain.dylib
-      end
-    '';
-  };
+  # The whole fish config dir is one out-of-store link; edits apply without a
+  # rebuild. Runtime artifacts (fish_variables, OrbStack's completion symlinks)
+  # therefore land in the repo's config/fish/ and are excluded via .gitignore.
+  xdg.configFile."fish".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish";
 
   home.packages = with pkgs; [
+    # On macOS nix-darwin installs fish system-wide; this covers standalone
+    # home-manager on Linux where programs.fish.enable was the only source.
+    fish
     trash-cli
   ];
 }

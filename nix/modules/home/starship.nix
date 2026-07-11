@@ -1,18 +1,11 @@
-{ ... }:
+{ pkgs, config, ... }:
 
 {
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    settings = {
-      username = {
-        show_always = true;
-      };
-      hostname = {
-        ssh_only = false;
-      };
-    };
-  };
+  # programs.starship is intentionally OFF: fish init is done via the config cache in
+  # config/fish/config.fish instead.
+  home.packages = [ pkgs.starship ];
+
+  # starship.toml lives in the repo; edits apply without a rebuild.
+  xdg.configFile."starship.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/starship.toml";
 }
