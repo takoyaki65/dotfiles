@@ -15,6 +15,11 @@ let
 
     theme = "Kanagawa Dragon";
 
+    # The login shell stays bash (no exec-into-fish redirect), so launch
+    # fish explicitly. The config is regenerated on every switch, so the
+    # store path never goes stale.
+    command = "${pkgs.fish}/bin/fish";
+
     shell-integration = "fish";
     shell-integration-features = "no-cursor";
 
