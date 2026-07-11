@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./dotfiles-path.nix
     ./packages.nix
     ./neovim.nix
     ./direnv.nix

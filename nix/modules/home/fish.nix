@@ -1,31 +1,17 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  programs.fish = {
-    enable = true;
-    shellAliases = {
-      del = "trash";
-      delete = "trash";
-    };
-    interactiveShellInit = ''
-      # Disable greeting
-      set -g fish_greeting
+  # Keep enabled: HM's generated config.fish sources hm-session-vars
+  # (essential on standalone Linux HM) and carries integrations such as
+  # starship's enableFishIntegration.
+  programs.fish.enable = true;
 
-      # Nerd Fonts (UDEV Gothic NF) for themes/prompts
-      set -gx theme_nerd_fonts yes
-
-      # LS_COLORS via vivid
-      set -gx LS_COLORS (vivid generate tokyonight-night)
-
-      # macOS: Homebrew & SSH SK provider
-      if test (uname) = Darwin
-        if test -x /opt/homebrew/bin/brew
-          eval "$(/opt/homebrew/bin/brew shellenv fish)"
-        end
-        set -gx SSH_SK_PROVIDER /usr/lib/ssh-keychain.dylib
-      end
-    '';
-  };
+  # Raw fish config lives in the repo; edits apply without a rebuild.
+  # fish auto-sources conf.d/*.fish (before config.fish) and autoloads functions/.
+  xdg.configFile."fish/conf.d".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish/conf.d";
+  xdg.configFile."fish/functions".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish/functions";
 
   home.packages = with pkgs; [
     trash-cli

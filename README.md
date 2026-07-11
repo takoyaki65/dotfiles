@@ -11,10 +11,18 @@ dotfiles/
 │   ├── home/               # Cross-platform (home-manager)
 │   ├── darwin/             # macOS (nix-darwin)
 │   └── linux/              # Linux
-├── nvim/                   # Neovim config (raw lua files)
+├── config/                 # Raw config files (the working tree is the source of truth)
+│   ├── nvim/               # Neovim config (raw lua files, symlinked out-of-store)
+│   ├── fish/               # fish conf.d/functions (symlinked out-of-store)
+│   └── karabiner/          # Karabiner-Elements config
 ├── README.md
 └── LICENSE
 ```
+
+`config/nvim` and `config/fish` are linked into `~/.config` with
+`mkOutOfStoreSymlink`, so edits (including lazy.nvim's `lazy-lock.json`
+updates) take effect immediately without a rebuild — remember to commit
+them afterwards.
 
 ## Installation
 

@@ -1,4 +1,4 @@
-{ pkgs, dotfilesDir, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   treesitterGrammars = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
@@ -27,6 +27,13 @@ in
     ];
   };
 
-  # Link raw lua config as-is
-  xdg.configFile."nvim".source = "${dotfilesDir}/nvim";
+  # HM always generates an init.lua (provider disabling only), which would
+  # conflict with the whole-directory symlink below; the repo config is the
+  # source of truth (providers are disabled in lua/config/options.lua)
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
+
+  # Link raw lua config directly into the repo working tree (mutable,
+  # edits and lazy-lock.json updates apply without a rebuild)
+  xdg.configFile."nvim".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/nvim";
 }
