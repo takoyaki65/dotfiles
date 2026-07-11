@@ -6,15 +6,11 @@
   # The repo's config/fish/config.fish handles both itself, so the whole fish
   # config stays editable without a rebuild.
 
-  # Raw fish config lives in the repo; edits apply without a rebuild.
-  # fish auto-sources conf.d/*.fish (before config.fish) and autoloads functions/.
-  # The fish dir is NOT symlinked wholesale so fish_variables stays out of the repo.
-  xdg.configFile."fish/config.fish".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish/config.fish";
-  xdg.configFile."fish/conf.d".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish/conf.d";
-  xdg.configFile."fish/functions".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish/functions";
+  # The whole fish config dir is one out-of-store link; edits apply without a
+  # rebuild. Runtime artifacts (fish_variables, OrbStack's completion symlinks)
+  # therefore land in the repo's config/fish/ and are excluded via .gitignore.
+  xdg.configFile."fish".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/fish";
 
   home.packages = with pkgs; [
     # On macOS nix-darwin installs fish system-wide; this covers standalone
