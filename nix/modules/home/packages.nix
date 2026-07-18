@@ -39,6 +39,7 @@
     # Miscellaneous utilities
     fixjson
     shellcheck
+    worktrunk
 
     # Package Managers
     nodejs_24
