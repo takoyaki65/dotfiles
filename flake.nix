@@ -32,14 +32,8 @@
     let
       username = "mizokami";
 
-      # Create pkgs with overlays
-      mkPkgs = system:
-        import nixpkgs {
-            inherit system;
-            overlays = [
-              llm-agents.overlays.default
-            ];
-        };
+      # Create pkgs
+      mkPkgs = system: import nixpkgs { inherit system; };
 
       mkLinuxHomeConfig = linuxSystem:
         home-manager.lib.homeManagerConfiguration {
@@ -54,6 +48,7 @@
           ];
           extraSpecialArgs = {
             dotfilesDir = ./.;
+            llmAgents = llm-agents.packages.${linuxSystem};
           };
         };
     in
@@ -79,6 +74,7 @@
             };
             home-manager.extraSpecialArgs = {
               dotfilesDir = ./.;
+              llmAgents = llm-agents.packages."aarch64-darwin";
             };
           }
         ];

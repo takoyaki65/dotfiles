@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ llmAgents, ... }:
 
 {
-    home.packages = with pkgs.llm-agents; [
+    home.packages = with llmAgents; [
         codex
         claude-code
     ];
