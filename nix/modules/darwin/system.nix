@@ -10,6 +10,15 @@
     trusted-users = [ "root" "mizokami" ];
   };
 
+  # Linux builder VM — builds aarch64-linux closures (e.g. microvm.nix
+  # systems run via vfkit) since aarch64-darwin can't build them natively.
+  nix.linux-builder = {
+    enable = true;
+    ephemeral = true; # wipe the disk image on each config-change restart
+    maxJobs = 4;
+    config.virtualisation.cores = 6;
+  };
+
   # System packages (macOS only)
   environment.systemPackages = with pkgs; [
     # Add macOS-specific packages here
