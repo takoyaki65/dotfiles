@@ -82,16 +82,24 @@ sudo darwin-rebuild switch --flake .#mizokami
    cd ~/dotfiles
    ```
 
-3. Apply Home Manager configuration:
+3. Apply the system-manager and Home Manager configuration:
 
    ```bash
-   nix run home-manager -- switch --flake .#mizokami
+   sudo nix --accept-flake-config run .#system-manager -- \
+     switch --flake .#mizokami
    ```
 
-After the first run, run this command to sync your environment with this confiyour environment with this config.
+   Use `.#mizokami-aarch64` instead on an AArch64 machine. The first switch
+   also takes ownership of `/etc/nix/nix.conf`; the original is retained as a
+   system-manager backup.
+
+Run the same command after the first switch to sync both the system and home
+configuration. Home Manager backs up pre-existing dotfiles with the `.backup`
+extension.
 
 ```bash
-sudo home-manager switch --flake .#mizokami
+sudo nix --accept-flake-config run .#system-manager -- \
+  switch --flake .#mizokami
 ```
 
 ## Neovim

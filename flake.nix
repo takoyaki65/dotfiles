@@ -20,36 +20,67 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, llm-agents, ... }:
+  outputs =
+    { nixpkgs, home-manager, home-manager-unstable, nix-darwin, system-manager, llm-agents, ... }:
     let
       username = "mizokami";
 
       # Create pkgs
       mkPkgs = system: import nixpkgs { inherit system; };
 
-      mkLinuxHomeConfig = linuxSystem:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = mkPkgs linuxSystem;
+      mkLinuxSystemConfig = linuxSystem:
+        system-manager.lib.makeSystemConfig {
           modules = [
+            home-manager-unstable.nixosModules.home-manager
             {
-              home.username = username;
-              home.homeDirectory = "/home/${username}";
+              nixpkgs.hostPlatform = linuxSystem;
+
+              nix.enable = true;
+              nix.settings = {
+                extra-substituters = [ "https://cache.numtide.com" ];
+                extra-trusted-public-keys = [
+                  "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+                ];
+              };
+
+              users.users.${username} = {
+                isNormalUser = true;
+                home = "/home/${username}";
+              };
+
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "backup";
+                users.${username}.imports = [
+                  ./nix/modules/home
+                  ./nix/modules/linux
+                ];
+                extraSpecialArgs = {
+                  dotfilesDir = ./.;
+                  llmAgents = llm-agents.packages.${linuxSystem};
+                };
+              };
             }
-            ./nix/modules/home
-            ./nix/modules/linux
           ];
-          extraSpecialArgs = {
-            dotfilesDir = ./.;
-            llmAgents = llm-agents.packages.${linuxSystem};
-          };
         };
     in
     {
@@ -80,10 +111,15 @@
         ];
       };
 
-      # Linux: standalone home-manager
-      homeConfigurations = {
-        ${username} = mkLinuxHomeConfig "x86_64-linux";
-        "${username}-aarch64" = mkLinuxHomeConfig "aarch64-linux";
+      # Linux: system-manager + home-manager
+      systemConfigs = {
+        ${username} = mkLinuxSystemConfig "x86_64-linux";
+        "${username}-aarch64" = mkLinuxSystemConfig "aarch64-linux";
       };
+
+      # Bootstrap system-manager from the version pinned by flake.lock.
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (linuxSystem: {
+        system-manager = system-manager.packages.${linuxSystem}.default;
+      });
     };
 }
