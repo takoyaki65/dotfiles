@@ -26,81 +26,88 @@ them afterwards.
 
 ## Installation
 
-### macOS
+Choose the instructions for the target platform and architecture.
 
-1. Install [Nix](https://github.com/NixOS/nix-installer):
+<details>
+<summary>macOS</summary>
 
-   We assume `curl` is installed by default.
-   ```bash
-   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
-   ```
-
-2. Install [Homebrew](https://brew.sh/) (required for casks and Mac App Store apps):
-
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-
-3. Clone this repository:
-
-   `git` is not installed by default, so use git from `nix-shell`.
-   ```bash
-   nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
-   ```
-
-4. Apply the nix-darwin configuration (initial run):
-
-   ```bash
-   sudo nix run nix-darwin -- switch --flake .#mizokami
-   ```
-
-5. Reload your shell:
-
-   ```bash
-   exec fish
-   ```
-
-After the first run, run this command to sync your environment with this config.
+`curl` is assumed to be available. Homebrew is required for casks and Mac App
+Store apps. Since Git is not installed by default, the repository is cloned
+with Git from Nix.
 
 ```bash
-sudo darwin-rebuild switch --flake .#mizokami
+# Install Nix.
+curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+# Install Homebrew.
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Clone this repository.
+nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# Apply the nix-darwin configuration for the first time.
+sudo "$(command -v nix)" run nix-darwin -- switch --flake .#mizokami
+
+# Reload the shell.
+exec fish
 ```
 
-### Linux
+After subsequent configuration changes, run
+`sudo darwin-rebuild switch --flake .#mizokami`.
 
-1. Install [Nix](https://github.com/NixOS/nix-installer):
+</details>
 
-   ```bash
-   curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
-   ```
+<details>
+<summary>Linux (aarch64)</summary>
 
-2. Clone this repository with Git from Nix:
-
-   ```bash
-   nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
-   ```
-
-3. Apply the system-manager and Home Manager configuration:
-
-   ```bash
-   sudo nix --accept-flake-config run .#system-manager -- \
-     switch --flake .#mizokami
-   ```
-
-   Use `.#mizokami-aarch64` instead on an AArch64 machine. The first switch
-   also takes ownership of `/etc/nix/nix.conf`; the original is retained as a
-   system-manager backup.
-
-Run the same command after the first switch to sync both the system and home
-configuration. Home Manager backs up pre-existing dotfiles with the `.backup`
-extension.
+The first switch takes ownership of `/etc/nix/nix.conf`; system-manager keeps
+the original as a backup. Home Manager backs up pre-existing dotfiles with the
+`.backup` extension.
 
 ```bash
-sudo nix --accept-flake-config run .#system-manager -- \
+# Install Nix.
+curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+# Clone this repository with Git from Nix.
+nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# Apply both the system-manager and Home Manager configurations.
+# Run this command again after subsequent configuration changes.
+sudo "$(command -v nix)" --accept-flake-config run .#system-manager -- \
+  --nix-option accept-flake-config true \
+  switch --flake .#mizokami-aarch64
+```
+
+</details>
+
+<details>
+<summary>Linux (non-aarch64)</summary>
+
+The first switch takes ownership of `/etc/nix/nix.conf`; system-manager keeps
+the original as a backup. Home Manager backs up pre-existing dotfiles with the
+`.backup` extension.
+
+```bash
+# Install Nix.
+curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+# Clone this repository with Git from Nix.
+nix shell nixpkgs#git -c git clone https://github.com/takoyaki65/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# Apply both the system-manager and Home Manager configurations.
+# Run this command again after subsequent configuration changes.
+sudo "$(command -v nix)" --accept-flake-config run .#system-manager -- \
+  --nix-option accept-flake-config true \
   switch --flake .#mizokami
 ```
+
+</details>
 
 ## Neovim
 
