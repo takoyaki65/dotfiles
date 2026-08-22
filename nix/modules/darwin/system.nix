@@ -96,6 +96,7 @@
       "discord"
       "ghostty"
       "karabiner-elements"
+      "utm"
     ];
 
     masApps = {
