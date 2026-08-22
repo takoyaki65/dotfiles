@@ -77,9 +77,9 @@ cd ~/dotfiles
 
 # Apply both the system-manager and Home Manager configurations.
 # Run this command again after subsequent configuration changes.
-sudo "$(command -v nix)" --accept-flake-config run .#system-manager -- \
-  --nix-option accept-flake-config true \
-  switch --flake .#mizokami-aarch64
+nix --accept-flake-config run .#system-manager -- \
+  switch --flake .#mizokami-aarch64 --sudo \
+  --nix-option accept-flake-config true
 ```
 
 </details>
@@ -102,9 +102,9 @@ cd ~/dotfiles
 
 # Apply both the system-manager and Home Manager configurations.
 # Run this command again after subsequent configuration changes.
-sudo "$(command -v nix)" --accept-flake-config run .#system-manager -- \
-  --nix-option accept-flake-config true \
-  switch --flake .#mizokami
+nix --accept-flake-config run .#system-manager -- \
+  switch --flake .#mizokami --sudo \
+  --nix-option accept-flake-config true
 ```
 
 </details>
