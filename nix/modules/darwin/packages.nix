@@ -10,7 +10,6 @@ in
   # macOS-specific Nix packages (home-manager)
   home.packages = with pkgs; [
     mas
-    keycastr
     utmctl
   ];
 }
