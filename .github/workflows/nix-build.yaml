@@ -37,9 +37,9 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/setup-nix
-      - name: Build Linux (x86_64) Home Manager configuration
+      - name: Build Linux (x86_64) system-manager configuration
         run: |
-          nix build .#homeConfigurations.mizokami.activationPackage \
+          nix build .#systemConfigs.mizokami \
             --print-build-logs \
             --show-trace
 
@@ -51,8 +51,8 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/setup-nix
-      - name: Build Linux (aarch64) Home Manager configuration
+      - name: Build Linux (aarch64) system-manager configuration
         run: |
-          nix build .#homeConfigurations.mizokami-aarch64.activationPackage \
+          nix build .#systemConfigs.mizokami-aarch64 \
             --print-build-logs \
             --show-trace
