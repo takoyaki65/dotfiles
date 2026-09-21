@@ -39,6 +39,7 @@
     # Miscellaneous utilities
     fixjson
     shellcheck
+    actionlint
     worktrunk
 
     # Package Managers
