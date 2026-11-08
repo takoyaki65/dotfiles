@@ -1,0 +1,4 @@
+presets = ["readable-code", "clean-code"]
+
+[provider]
+name = "openai"
