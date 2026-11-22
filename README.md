@@ -23,10 +23,6 @@ dotfiles/
 └── LICENSE
 ```
 
-`flake.nix` combines the common Home Manager modules with the target platform's
-user settings. Modules in `nix/modules/darwin` are imported by nix-darwin;
-modules in `nix/modules/home` are imported by Home Manager.
-
 `config/nvim` and `config/fish` are linked into `~/.config` with
 `mkOutOfStoreSymlink`, so edits (including lazy.nvim's `lazy-lock.json`
 updates) take effect immediately without a rebuild — remember to commit
