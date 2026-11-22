@@ -72,7 +72,7 @@
                 backupFileExtension = "backup";
                 users.${username}.imports = [
                   ./nix/modules/home
-                  ./nix/modules/linux
+                  ./nix/modules/home/linux.nix
                 ];
                 extraSpecialArgs = {
                   dotfilesDir = ./.;
@@ -91,7 +91,7 @@
           {
             nixpkgs.pkgs = mkPkgs "aarch64-darwin";
           }
-          ./nix/modules/darwin/system.nix
+          ./nix/modules/darwin
           home-manager.darwinModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
@@ -100,7 +100,7 @@
             home-manager.users.${username} = {
               imports = [
                 ./nix/modules/home
-                ./nix/modules/darwin
+                ./nix/modules/home/darwin
               ];
             };
             home-manager.extraSpecialArgs = {

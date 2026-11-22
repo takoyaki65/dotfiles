@@ -7,10 +7,14 @@ Personal dotfiles for macOS and Linux, managed with [Nix](https://nixos.org/) (h
 ```
 dotfiles/
 ├── flake.nix               # Nix entry point
-├── nix/modules/
-│   ├── home/               # Cross-platform (home-manager)
-│   ├── darwin/             # macOS (nix-darwin)
-│   └── linux/              # Linux
+├── nix/
+│   ├── modules/
+│   │   ├── darwin/         # macOS system settings (nix-darwin)
+│   │   └── home/           # User settings (home-manager)
+│   │       ├── default.nix # Imports cross-platform app modules
+│   │       ├── darwin/     # macOS user settings (AeroSpace, Karabiner, packages)
+│   │       └── linux.nix   # Linux user settings
+│   └── packages/           # Custom Nix package definitions
 ├── config/                 # Raw config files (the working tree is the source of truth)
 │   ├── nvim/               # Neovim config (raw lua files, symlinked out-of-store)
 │   ├── fish/               # fish conf.d/functions (symlinked out-of-store)
