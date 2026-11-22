@@ -2,8 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    # Terminal (Ghostty is installed via Homebrew on macOS)
-
     # Essentials
     tmux
 
@@ -17,8 +15,6 @@
     jq
     dust
     yazi
-    dust
-    zoxide
     trash-cli
 
     # Git & project management
