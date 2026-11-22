@@ -14,7 +14,7 @@
     ./git.nix
     ./starship.nix
     ./ai-tools.nix
-    ./programs
+    ./btop.nix
   ];
 
   # username / homeDirectory are set per-platform in flake.nix

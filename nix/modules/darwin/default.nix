@@ -1,9 +1,112 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-    ./packages.nix
-    ./aerospace.nix
-    ./dotfiles.nix
+  # Primary user (required by recent nix-darwin)
+  system.primaryUser = "mizokami";
+
+  # Nix settings
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    trusted-users = [ "root" "mizokami" ];
+  };
+
+  # Linux builder VM — builds aarch64-linux closures (e.g. microvm.nix
+  # systems run via vfkit) since aarch64-darwin can't build them natively.
+  nix.linux-builder = {
+    enable = true;
+    ephemeral = true; # wipe the disk image on each config-change restart
+    maxJobs = 4;
+    config.virtualisation.cores = 6;
+  };
+
+  # System packages (macOS only)
+  environment.systemPackages = with pkgs; [
+    # Add macOS-specific packages here
   ];
+
+  fonts = {
+    packages = with pkgs; [
+      udev-gothic
+      udev-gothic-nf
+    ];
+  };
+
+  # Declare user so home-manager can resolve username/homeDirectory
+  users.users.mizokami = {
+    name = "mizokami";
+    home = "/Users/mizokami";
+    shell = pkgs.fish;
+  };
+
+  programs.fish.enable = true;
+
+  # Add fish shells to system shells
+  environment.shells = [ pkgs.fish ];
+
+  # Enable Touch ID and Apple Watch for sudo (including tmux support via pam-reattach)
+  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.watchIdAuth = true;
+  security.pam.services.sudo_local.reattach = true;
+
+  # macOS system defaults
+  system.defaults = {
+    NSGlobalDomain = {
+      AppleShowAllExtensions = true;
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+      # Disable switching to a workspace that has a window of the application open,
+      # to prevent conflicts of Aerospace
+      AppleSpacesSwitchOnActivate = false;
+    };
+    dock = {
+      autohide = false;
+      show-recents = false;
+      # Disable auto-rearrange feature for spaces, to improve consistency
+      mru-spaces = false;
+      # Enable grouping windows by application in Mission Control's expose
+      # Because preventing smaller looks when enabling Aerospace
+      expose-group-apps = true;
+    };
+    finder = {
+      AppleShowAllExtensions = true;
+      FXPreferredViewStyle = "clmv";
+    };
+    # Reduce motion when switching between screens or opening apps
+    universalaccess.reduceMotion = true;
+    # Displays have different spaces
+    spaces.spans-displays = false;
+  };
+
+  # Window border settings
+  services.jankyborders = {
+    enable = true;
+    active_color = "0xCCFF9500";
+    inactive_color = "0x66808080";
+  };
+
+  # Homebrew configuration (managed declaratively by nix-darwin)
+  homebrew = {
+    enable = true;
+    onActivation.cleanup = "uninstall";
+
+    casks = [
+      "cloudflare-warp"
+      "cmux"
+      "codex-app"
+      "discord"
+      "ghostty"
+      "karabiner-elements"
+      "utm"
+    ];
+
+    masApps = {
+      "Microsoft Excel" = 462058435;
+      "Microsoft PowerPoint" = 462062816;
+      "Microsoft Word" = 462054704;
+      "Slack" = 803453959;
+    };
+  };
+
+  # Used for backwards compatibility
+  system.stateVersion = 7;
 }
