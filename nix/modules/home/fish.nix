@@ -11,6 +11,5 @@
     # On macOS nix-darwin installs fish system-wide; this covers standalone
     # home-manager on Linux where programs.fish.enable was the only source.
     fish
-    trash-cli
   ];
 }
