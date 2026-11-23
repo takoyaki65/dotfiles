@@ -1,8 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  # programs.starship is intentionally OFF: fish init is done via the config cache in
-  # config/fish/config.fish instead.
+  # programs.starship is intentionally OFF: config/fish/config.fish initializes it.
   home.packages = [ pkgs.starship ];
 
   # starship.toml lives in the repo; edits apply without a rebuild.
