@@ -3,6 +3,7 @@
 {
   programs.aerospace = {
     enable = true;
+    # Let launchd handle startup and keep AeroSpace running.
     launchd = {
       enable = true;
       keepAlive = true;
@@ -10,13 +11,10 @@
 
     # Based on: https://nikitabobko.github.io/AeroSpace/guide#default-config
     settings = {
-      # Config version for compatibility and deprecations
-      # Fallback value (if you omit the key): config-version = 1
+      # Persistent workspaces below require config version 2.
       config-version = 2;
 
-      # This value is false because launched agents are now handled by launchd
-      # start-at-login = false;
-      # after-login-command = [];
+      # Layout and spacing.
       accordion-padding = 16;
 
       # tiles | accordion
@@ -25,34 +23,29 @@
       # horizontal | vertical | auto
       default-root-container-orientation = "auto";
 
-      # Mouse follows focus when focused monitor changes
-      # Drop it from your config, if you don't like this behavior
-      # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
-      # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
-      # Fallback value (if you omit the key): on-focused-monitor-changed = []
+      # Move the pointer to the focused monitor or window.
+      # See: https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
+      # See: https://nikitabobko.github.io/AeroSpace/commands#move-mouse
       on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
       on-focus-changed = ["move-mouse window-lazy-center"];
 
-      # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
-      # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
-      # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
+      # Prevent accidental cmd-h / cmd-alt-h from leaving apps hidden.
+      # See: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
       automatically-unhide-macos-hidden-apps = true;
 
-      # List of workspaces that should stay alive even when they contain no windows,
-      # even when they are invisible.
-      # This config version is only available since 'config-version = 2'
-      # Fallback value (if you omit the key): persistent-workspaces = []
+      # Keep numbered and app workspaces even when empty or not visible.
       persistent-workspaces = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "B" "D" "M" "S" "T"];
 
-      # A callback that runs every time binding mode changes
+      # Commands to run when changing binding modes.
       # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
       # See: https://nikitabobko.github.io/AeroSpace/commands#mode
       on-mode-changed = [];
 
-      # Possible values: (qwerty|dvorak|colemak)
-      # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
+      # Keyboard layout: qwerty | dvorak | colemak.
+      # See: https://nikitabobko.github.io/AeroSpace/guide#key-mapping
       key-mapping.preset = "qwerty";
 
+      # Gaps between windows (inner) and at screen edges (outer).
       gaps = {
         inner.horizontal = 4;
         inner.vertical = 4;
@@ -65,32 +58,8 @@
       mode = {
         main = {
           binding = {
-            # All possible keys:
-            # - Letters.        a, b, c, ..., z
-            # - Numbers.        0, 1, 2, ..., 9
-            # - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
-            # - F-keys.         f1, f2, ..., f20
-            # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon,
-            #                   backtick, leftSquareBracket, rightSquareBracket, space, enter, esc,
-            #                   backspace, tab, pageUp, pageDown, home, end, forwardDelete,
-            #                   sectionSign (ISO keyboards only, european keyboards only)
-            # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
-            #                   keypadMinus, keypadMultiply, keypadPlus
-            # - Arrows.         left, down, up, right
-
-            # All possible modifiers: cmd, alt, ctrl, shift
-
-            # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
-
-            # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-            # You can uncomment the following lines to open up terminal with alt + enter shortcut
-            # (like in i3)
-            # alt-enter = '''exec-and-forget osascript -e '
-            # tell application "Terminal"
-            #     do script
-            #     activate
-            # end tell'
-            # '''
+            # Command reference: https://nikitabobko.github.io/AeroSpace/commands
+            # Application-launch shortcuts: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 
             # Layout
             alt-slash = "layout tiles horizontal vertical";
@@ -113,6 +82,7 @@
             alt-ctrl-h = "resize smart -50";
             alt-ctrl-l = "resize smart +50";
 
+            # Switch workspaces; lettered names identify app workspaces.
             # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
             alt-1 = "workspace 1";
             alt-2 = "workspace 2";
@@ -129,6 +99,7 @@
             alt-d = "workspace D"; # Discord
             alt-t = "workspace T"; # Terminal
 
+            # Move the focused window to another workspace.
             # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
             alt-shift-1 = "move-node-to-workspace 1";
             alt-shift-2 = "move-node-to-workspace 2";
@@ -145,20 +116,23 @@
             alt-shift-d = "move-node-to-workspace D"; # Discord
             alt-shift-t = "move-node-to-workspace T"; # Terminal
 
-            # Fullscreen currently focuse window
+            # Fullscreen the focused window.
             alt-shift-f = "fullscreen";
 
+            # Return to the previous workspace.
             # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
             alt-tab = "workspace-back-and-forth";
+            # Move the current workspace to the next monitor, wrapping around.
             # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
             alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
 
+            # Enter service mode for layout maintenance.
             # See: https://nikitabobko.github.io/AeroSpace/commands#mode
             alt-shift-semicolon = "mode service";
           };
         };
 
-        # 'service' binding mode declaration.
+        # Layout maintenance; esc reloads the config and returns to main mode.
         # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
         service = {
           binding = {
@@ -167,8 +141,7 @@
             f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
             backspace = ["close-all-windows-but-current" "mode main"];
 
-            # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-            #s = ['layout sticky tiling', 'mode main']
+            # Sticky-window support: https://github.com/nikitabobko/AeroSpace/issues/2
 
             alt-shift-h = ["join-with left" "mode main"];
             alt-shift-j = ["join-with down" "mode main"];
@@ -178,6 +151,7 @@
         };
       };
 
+      # Route new application windows to the named workspaces above.
       on-window-detected = [
         {
           check-further-callbacks = false;
