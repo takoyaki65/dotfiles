@@ -4,6 +4,7 @@
   imports = [
     ./dotfiles-path.nix
     ./packages.nix
+    ./shell-session.nix
     ./bash.nix
     ./zsh.nix
     ./helix.nix

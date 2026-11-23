@@ -64,7 +64,6 @@
                   ./nix/modules/home/linux.nix
                 ];
                 extraSpecialArgs = {
-                  dotfilesDir = ./.;
                   llmAgents = llm-agents.packages.${linuxSystem};
                 };
               };
@@ -93,7 +92,6 @@
               ];
             };
             home-manager.extraSpecialArgs = {
-              dotfilesDir = ./.;
               llmAgents = llm-agents.packages."aarch64-darwin";
             };
           }
