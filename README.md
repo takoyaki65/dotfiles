@@ -110,12 +110,6 @@ nix --accept-flake-config run .#system-manager -- \
 
 </details>
 
-## Helix
-
-Helix is enabled through Home Manager with its default settings. Run `hx` to
-open the editor or `hx --tutor` for the tutorial. No custom keybindings, themes,
-or language servers are configured.
-
 ## License
 
 MIT
