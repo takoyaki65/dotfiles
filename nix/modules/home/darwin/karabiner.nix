@@ -1,5 +1,5 @@
 {
-  dotfilesDir,
+  config,
   lib,
   pkgs,
   ...
@@ -16,6 +16,6 @@
     ''
   );
 
-  # macOS-specific dotfile symlinks
-  xdg.configFile."karabiner/karabiner.json".source = "${dotfilesDir}/config/karabiner/karabiner.json";
+  xdg.configFile."karabiner/karabiner.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/karabiner/karabiner.json";
 }

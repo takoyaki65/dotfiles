@@ -20,7 +20,8 @@ dotfiles/
 ├── config/                 # Raw config files (the working tree is the source of truth)
 │   ├── fish/               # fish conf.d/functions (symlinked out-of-store)
 │   ├── helix/              # Helix TOML config (symlinked out-of-store)
-│   └── karabiner/          # Karabiner-Elements config
+│   ├── karabiner/          # Karabiner-Elements config (symlinked out-of-store)
+│   └── shell/              # Shared Bash/Zsh session initialization
 ├── README.md
 └── LICENSE
 ```
