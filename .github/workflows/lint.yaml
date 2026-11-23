@@ -17,5 +17,3 @@ jobs:
       - uses: ./.github/actions/setup-nix
       - name: Check flake
         run: nix flake check --all-systems --show-trace
-      - name: Check fish startup
-        run: nix shell --inputs-from . nixpkgs#fish -c python3 -B -m unittest discover -s tests

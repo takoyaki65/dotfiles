@@ -28,11 +28,6 @@ dotfiles/
 updates) take effect immediately without a rebuild — remember to commit
 them afterwards.
 
-Fish startup is coordinated in `config/fish/config.fish`: Home Manager session
-variables and PATH are loaded before interactive settings and tool hooks.
-Tool hooks are generated on each interactive startup; non-interactive shells
-only apply `direnv export fish`. No generated startup cache is used.
-
 ## Installation
 
 Choose the instructions for the target platform and architecture.
