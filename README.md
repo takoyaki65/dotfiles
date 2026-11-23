@@ -16,17 +16,14 @@ dotfiles/
 │   │       └── linux.nix   # Linux user settings
 │   └── packages/           # Custom Nix package definitions
 ├── config/                 # Raw config files (the working tree is the source of truth)
-│   ├── nvim/               # Neovim config (raw lua files, symlinked out-of-store)
 │   ├── fish/               # fish conf.d/functions (symlinked out-of-store)
 │   └── karabiner/          # Karabiner-Elements config
 ├── README.md
 └── LICENSE
 ```
 
-`config/nvim` and `config/fish` are linked into `~/.config` with
-`mkOutOfStoreSymlink`, so edits (including lazy.nvim's `lazy-lock.json`
-updates) take effect immediately without a rebuild — remember to commit
-them afterwards.
+`config/fish` is linked into `~/.config` with `mkOutOfStoreSymlink`, so edits
+take effect immediately without a rebuild — remember to commit them afterwards.
 
 ## Installation
 
@@ -113,14 +110,11 @@ nix --accept-flake-config run .#system-manager -- \
 
 </details>
 
-## Neovim
+## Helix
 
-- **Plugin Manager**: lazy.nvim
-- **LSP**: Go (gopls), Rust (rust-analyzer), TypeScript (ts_ls), Python (pyright), Lua (lua_ls)
-- **AI**: GitHub Copilot
-- **Fuzzy Finder**: Telescope + ghq
-- **File Explorer**: oil.nvim + yazi.nvim
-- **Theme**: Tokyo Night
+Helix is enabled through Home Manager with its default settings. Run `hx` to
+open the editor or `hx --tutor` for the tutorial. No custom keybindings, themes,
+or language servers are configured.
 
 ## License
 

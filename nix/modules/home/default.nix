@@ -6,7 +6,7 @@
     ./packages.nix
     ./bash.nix
     ./zsh.nix
-    ./neovim.nix
+    ./helix.nix
     ./direnv.nix
     ./fish.nix
     ./gh.nix
