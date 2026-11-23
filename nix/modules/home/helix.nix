@@ -1,15 +1,6 @@
-{ pkgs, ... }:
+{ config, ... }:
 
 {
-  programs.helix = {
-    enable = true;
-    extraPackages = [ pkgs.nixd ];
-
-    languages.language = [
-      {
-        name = "nix";
-        language-servers = [ "nixd" ];
-      }
-    ];
-  };
+  xdg.configFile."helix".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/config/helix";
 }
