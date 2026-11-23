@@ -4,7 +4,7 @@
   home.packages = [
     llmAgents.codex
     llmAgents.claude-code
-    (pkgs.callPackage ../../packages/jevlint.nix { })
+    (pkgs.callPackage ../../packages/jevlint { })
   ];
 
   xdg.configFile."jevlint/config.toml".source =
