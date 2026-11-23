@@ -17,7 +17,7 @@
     ./btop.nix
   ];
 
-  # username / homeDirectory are set per-platform in flake.nix
+  # username / homeDirectory are supplied by the platform's system module.
 
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
