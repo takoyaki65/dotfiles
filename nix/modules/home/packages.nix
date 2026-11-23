@@ -5,6 +5,10 @@
     # Essentials
     tmux
 
+    # Editors & language servers
+    helix
+    nixd
+
     # Search & file utilities
     ripgrep
     fd

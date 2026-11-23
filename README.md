@@ -17,13 +17,11 @@ dotfiles/
 │   └── packages/           # Custom Nix package definitions
 ├── config/                 # Raw config files (the working tree is the source of truth)
 │   ├── fish/               # fish conf.d/functions (symlinked out-of-store)
+│   ├── helix/              # Helix TOML config (symlinked out-of-store)
 │   └── karabiner/          # Karabiner-Elements config
 ├── README.md
 └── LICENSE
 ```
-
-`config/fish` is linked into `~/.config` with `mkOutOfStoreSymlink`, so edits
-take effect immediately without a rebuild — remember to commit them afterwards.
 
 ## Installation
 
