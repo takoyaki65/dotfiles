@@ -112,9 +112,11 @@ nix --accept-flake-config run .#system-manager -- \
 
 ## Helix
 
-Helix is enabled through Home Manager with its default settings. Run `hx` to
-open the editor or `hx --tutor` for the tutorial. No custom keybindings, themes,
-or language servers are configured.
+Helix is enabled through Home Manager. Run `hx` to open the editor or
+`hx --tutor` for the tutorial. Nix files use nixd as their language server;
+Home Manager makes nixd available to Helix. After applying the configuration,
+run `hx --health nix` to check language server availability. Keybindings and
+themes use the defaults.
 
 ## License
 
