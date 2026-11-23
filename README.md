@@ -9,7 +9,9 @@ dotfiles/
 ├── flake.nix               # Nix entry point
 ├── nix/
 │   ├── modules/
-│   │   ├── darwin/         # macOS system settings (nix-darwin)
+│   │   ├── system/         # OS system settings
+│   │   │   ├── darwin.nix # macOS (nix-darwin)
+│   │   │   └── linux.nix  # Linux (system-manager)
 │   │   └── home/           # User settings (home-manager)
 │   │       ├── default.nix # Imports cross-platform app modules
 │   │       ├── darwin/     # macOS user settings (AeroSpace, Karabiner, packages)

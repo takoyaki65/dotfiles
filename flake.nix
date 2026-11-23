@@ -48,23 +48,12 @@
 
       mkLinuxSystemConfig = linuxSystem:
         system-manager.lib.makeSystemConfig {
+          specialArgs = { inherit username; };
           modules = [
+            ./nix/modules/system/linux.nix
             home-manager-unstable.nixosModules.home-manager
             {
               nixpkgs.hostPlatform = linuxSystem;
-
-              nix.enable = true;
-              nix.settings = {
-                extra-substituters = [ "https://cache.numtide.com" ];
-                extra-trusted-public-keys = [
-                  "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-                ];
-              };
-
-              users.users.${username} = {
-                isNormalUser = true;
-                home = "/home/${username}";
-              };
 
               home-manager = {
                 useGlobalPkgs = true;
@@ -91,7 +80,7 @@
           {
             nixpkgs.pkgs = mkPkgs "aarch64-darwin";
           }
-          ./nix/modules/darwin
+          ./nix/modules/system/darwin.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
