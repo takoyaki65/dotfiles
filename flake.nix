@@ -52,10 +52,13 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 backupFileExtension = "backup";
-                users.${username}.imports = [
-                  ./nix/modules/home
-                  ./nix/modules/home/linux.nix
-                ];
+                users.${username} = {
+                  _module.args.pkgs = home-manager-unstable.inputs.nixpkgs.legacyPackages.${linuxSystem};
+                  imports = [
+                    ./nix/modules/home
+                    ./nix/modules/home/linux.nix
+                  ];
+                };
                 extraSpecialArgs = {
                   llmAgents = llm-agents.packages.${linuxSystem};
                 };
