@@ -25,10 +25,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    system-manager = {
-      url = "github:numtide/system-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # Keep System Manager's upstream Nixpkgs pin to reuse Numtide's cached builds.
+    system-manager.url = "github:numtide/system-manager";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
